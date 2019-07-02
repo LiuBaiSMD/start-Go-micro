@@ -16,6 +16,10 @@ consul：微服务发现框架，解决多服务环境下客户端相对于的�
 
 [consul与其他代理比较](https://www.jianshu.com/p/e0986abbfe48)
 
+[客户端微服务发现](https://microservices.io/patterns/client-side-discovery.html)
+
+[服务端微服务发现](https://microservices.io/patterns/server-side-discovery.html)
+
 protobuff：是一个灵活的、高效的用于序列化数据的协议
 
 [Golang下使用protobuf](https://www.jianshu.com/p/f4051569fd32)
