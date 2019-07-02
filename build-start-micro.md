@@ -50,12 +50,10 @@ micro list servic
 GOROOT中放置的是go系统包，GOPATH放置的自行下载的包，对于包存放的位置需要自行调整。
 
 ***2.Protobuf版本问题***
-
 protobuf 编译后版本问题，version2 与 version3版本，注意代码与proto库的版本是否对应，导致protoc编译的pb.go文件无法与service、client代码对应
 
 ***3.启动consul后无法查看到进程***
-
-    通常使用下面代码查看一般微服务进程
+通常使用下面代码查看一般微服务进程
 ```
 micro list servic
 ```
