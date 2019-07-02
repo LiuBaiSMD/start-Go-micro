@@ -1,17 +1,25 @@
 # micro学习
 ## 搭建micro环境
 [Micro China](https://github.com/micro-in-cn)
+
 build-start-micro.md文档中，在已经搭建好go环境的前提下，搭建go micro微服务架构
 ***
 相关知识
 ***
 consul：微服务发现框架，解决多服务环境下客户端相对于的配置问题
+
 相关介绍链接：
+
 [consul图文介绍](https://www.cnblogs.com/xiaohanlin/p/8016803.html)
+
 [consul介绍、安装、使用教程](https://blog.csdn.net/liuzhuchen/article/details/81913562)
+
 [consul与其他代理比较](https://www.jianshu.com/p/e0986abbfe48)
+
 protobuff：是一个灵活的、高效的用于序列化数据的协议
+
 [Golang下使用protobuf](https://www.jianshu.com/p/f4051569fd32)
+
 [protocol buffers生成go代码原理](https://www.cnblogs.com/charlieroro/p/9043337.html)
 
 # 如何创建实例
