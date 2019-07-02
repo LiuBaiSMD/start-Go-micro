@@ -22,7 +22,9 @@ consul：微服务发现框架，解决多服务环境下客户端相对于的�
 
 protobuff：是一个灵活的、高效的用于序列化数据的协议
 protoc：Protobuf（Protocol Buffers - Google's data interchange format）编译器：
+
 protoc-gen-go：goprotobuf 提供的 Protobuf 插件：在$GOPATH目录下执行go get github.com/micro/protobuf/{proto,protoc-gen-go}，该命令会在bin目录下生成protoc-gen-go(.exe)工具，protoc编译器利用protoc-gen-go插件将.proto文件转换为Golang源文件
+
 protoc-gen-micro（Protobuf code generation for micro）：在$GOPATH目录下执行go get github.com/micro/protoc-gen-micro，该命令会在bin目录下生成protoc-gen-micro(.exe)，protoc编译器利用protoc-gen-micro插件将.proto文件转换为micro代码风格文件
 
 [Golang下使用protobuf](https://www.jianshu.com/p/f4051569fd32)
