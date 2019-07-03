@@ -17,14 +17,14 @@ brew install protobuf
 go get -u -v github.com/golang/protobuf/{proto,protoc-gen-go}
 go get -u -v github.com/micro/protoc-gen-micro
 ```
-# 4. 安装grpc和genproto
+# 4. 安装grpc和genproto（如使用go mod和goproxy代理则可不用此步骤）
 ```
 mkdir $GOPATH/src/google.golang.org
 cd $GOPATH/src/google.golang.org
 git clone https://github.com/grpc/grpc-go.git grpc
 git clone https://github.com/google/go-genproto.git genproto
 ```
-# 5. 安装 golang的net,crypt,text库
+# 5. 安装 golang的net,crypt,text库（如使用go mod和goproxy代理则可不用此步骤）
 ```
 mkdir -p $GOPATH/src/golang.org/x
 cd $GOPATH/src/golang.org/x
@@ -50,14 +50,9 @@ micro list servic
 ***
 问题原因为该放置在GOPATH下的package放置在GOROOT下
 GOROOT中放置的是go系统包，GOPATH放置的自行下载的包，对于包存放的位置需要自行调整。
+***
 
-***
-2.Protobuf版本问题
-***
-protobuf 编译后版本问题，version2 与 version3版本，注意代码与proto库的版本是否对应，导致protoc编译的pb.go文件无法与service、client代码对应
-
-***
-3.启动consul后无法查看到进程
+2.启动consul后无法查看到进程
 ***
 通常使用下面代码查看一般微服务进程
 ```
@@ -66,4 +61,16 @@ micro list servic
 如果上述代码无法查看，是指使用consul进行服务发现和注册
 ```
 micro --registry=consul list services
+```
+
+***
+3.拉取包、库超时
+***
+在项目中启用go mod 与goproxy代理结合即可解决
+在项目目录下使用go mod 进行包管理
+```
+export GOPROXY=https://goproxy.io
+export GO111MODULE=auto
+go mod init goPRJ(此名字与本地项目文件夹同名即可，即proto所在的文件夹，默认为goPRJ)
+go mod tidy (拉取包依赖)
 ```

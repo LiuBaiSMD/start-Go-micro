@@ -34,11 +34,19 @@ protoc-gen-micro（Protobuf code generation for micro）：在$GOPATH目录下�
 # 如何创建实例
 1.通过[环境安装教程](https://github.com/LiuBaiSMD/start-Go-micro/blob/master/build-start-micro.md)安装好环境
 
-2.下载goPRJ到本地GO项目存放路径下
+2.下载goPRJ到本地GO项目存放路径下(如使用gomod管理包，请将本项目放置在$GOPATH路径外)
 
-3.下载proto路径到本地GOPATH路径下，并使用protoc编译成pb.go文件
+3.设置goproxyio代理，启动go mod包管理，拉取依赖包
 ```
-protoc --go_out=plugins=micro:. hello_world.proto
+export GOPROXY=https://goproxy.io
+export GO111MODULE=auto
+go mod init goPRJ(此名字与本地项目文件夹同名即可，即proto所在的文件夹，默认为goPRJ)
+go mod tidy (拉取包依赖)
+```
+
+3.并使用protoc编译指令将proto文件编译成pb.go、micro.go代码风格文件，或使用编译脚本proto_gen_recurse.sh直接编译所有proto文件
+```
+protoc --proto_path=. --go_out=.  --micro_out=. hello_world.proto（你的proto文件名字）
 ```
 
 4.启动consul
@@ -62,13 +70,13 @@ goPRJ文件夹结构
 ```
 运行goPRJ下的hello.go
 ```
-go run goPRJ/services/helloclien.go
+go run hello.go
 ```
 ***保持service后台运行***
 
 6.启动Client进行测试
 运行goPRJ下的helloclient.go
 ```
-go run goPRJ/Clients/helloclient.go
+go run helloclient.go
 ```
-在运行后会在界面返回结果
+在运行后会在界面返回对应结果
