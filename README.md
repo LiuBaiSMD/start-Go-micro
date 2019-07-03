@@ -45,12 +45,12 @@ go mod init goPRJ(此名字与本地项目文件夹同名即可，即proto所在
 go mod tidy (拉取包依赖)
 ```
 
-3.并使用protoc编译指令将proto文件编译成pb.go、micro.go代码风格文件，或使用编译脚本proto_gen_recurse.sh直接编译所有proto文件
+4.并使用protoc编译指令将proto文件编译成pb.go、micro.go代码风格文件，或使用编译脚本proto_gen_recurse.sh直接编译所有proto文件
 ```
 protoc --proto_path=. --go_out=.  --micro_out=. hello_world.proto（你的proto文件名字）
 ```
 
-4.启动consul
+5.启动consul
 ```
 consul agent -dev
 ```
@@ -60,7 +60,7 @@ micro --registry=consul list services
 ```
 可进入[consul WEB管理器](http://localhost:8500)查看
 
-5.启动service端
+6.启动service端
 goPRJ文件夹结构
 ```
 ├── goPRJ
@@ -75,7 +75,7 @@ go run hello.go
 ```
 ***保持service后台运行***
 
-6.启动Client进行测试
+7.启动Client进行测试
 运行goPRJ下的helloclient.go
 ```
 go run helloclient.go

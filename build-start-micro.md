@@ -50,8 +50,9 @@ micro list servic
 ***
 问题原因为该放置在GOPATH下的package放置在GOROOT下
 GOROOT中放置的是go系统包，GOPATH放置的自行下载的包，对于包存放的位置需要自行调整。
-***
+或者使文件路径不对，请检查路径
 
+***
 2.启动consul后无法查看到进程
 ***
 通常使用下面代码查看一般微服务进程
@@ -62,7 +63,6 @@ micro list servic
 ```
 micro --registry=consul list services
 ```
-<<<<<<< HEAD
 
 ***
 3.拉取包、库超时
@@ -75,5 +75,4 @@ export GO111MODULE=auto
 go mod init goPRJ(此名字与本地项目文件夹同名即可，即proto所在的文件夹，默认为goPRJ)
 go mod tidy (拉取包依赖)
 ```
-=======
->>>>>>> cfed402f31a8c3e1a0b05854a90161dd99259a27
+
