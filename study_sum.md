@@ -1,4 +1,4 @@
-# 2019.07.02
+# 2019.07.03
 ## 1.整个项目概要梳理
 1.使用protobuf文件来定义API接口，所传输的数据流格式，编译proto文件，形成pb、micro代码风格文件
 
@@ -42,3 +42,20 @@ protoc --proto_path=. --micro_out=. --go_out=. your.proto
 
 
 ## 未完成：学习并测试带IP：端口Mirco实例
+
+# 2019.07.04
+1.启用Micro API测试Micro实例程序，调试在RPC、get、post方式下方法调用
+```
+go micro api --handler=api
+```
+如使用rpc模式启动,则不能使用get、post调用service服务
+```
+go micro api --handler=rpc
+```
+2.熟悉go micro工程结构，proto文件作用以及编写规则
+
+3.了解RPC调用Micro方法时，调用中proto中的方法编写
+
+4.可以启动多个service服务，会采用默认的负载均衡策略
+
+5.service.go文件中需要在main方法进行实例化，可以在一个service.go文件中创建多个service服务，只需要继承实现proto中相应的service服务API接口即可
