@@ -9,7 +9,7 @@ package main
 //	"github.com/micro/go-micro/errors"
 //	"goPRJ/apiPRJ/apiTest/proto"
 //	proto "goPRJ/apiPRJ/apiTest/proto"
-//	"golang.org/x/net/context"
+//	"context"
 //)
 //
 //type Example1 struct{}
@@ -17,7 +17,7 @@ package main
 //type Foo1 struct{}
 //
 //// Example.Call is a method which will be served by http request /example/call
-//// In the event we see /[service]/[method] the [service] is used as part of the method
+//// In the eventPRJ we see /[service]/[method] the [service] is used as part of the method
 //// E.g /example/call goes to go.micro.api.example Example.Call
 //func (e *Example) Call1(ctx context.Context, req *api.Request, rsp *api.Response) error {
 //	log.Print("Received Example.Call request")

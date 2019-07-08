@@ -4,7 +4,7 @@ import (
     "fmt"
     hello_world "goPRJ/proto/helloPT" // import proto生成的类
     "github.com/micro/go-micro"
-    "golang.org/x/net/context"
+    "context"
 )
 
 type HelloWorld struct{}

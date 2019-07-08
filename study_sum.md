@@ -59,3 +59,33 @@ go micro api --handler=rpc
 4.可以启动多个service服务，会采用默认的负载均衡策略
 
 5.service.go文件中需要在main方法进行实例化，可以在一个service.go文件中创建多个service服务，只需要继承实现proto中相应的service服务API接口即可
+
+# 2019.07.08
+1.通过教程将Micro的启动模式rpc、api、http（proxy）、web、event、meta处理方式进行实例启动（具体参考[micro-api介绍文档](https://github.com/micro-in-cn/all-in-one/tree/master/basic-practices/micro-api)）
+
+2.学习了解go mod使用
+
+3.go代码的编译以及包的寻找路径、先后顺序
+
+4.
+相对路径    
+```
+import   "./model"  //当前文件同一目录的model目录，但是不建议这种方式import
+```
+绝对路径    
+```
+import   "shorturl/model"  //加载GOPATH/src/shorturl/model模块
+```
+
+5.导入包的查找路径
+```
+1.$GOROOT
+2.$GOPATH
+```
+
+6.初始化路径
+[初始化顺序](https://blog.csdn.net/newdas123/article/details/81082392)
+
+7.不要无脑尝试，寻找方法比漫无目的投机取巧更重要
+
+## 未完成：实例阅读、分析，总结代码结构调整

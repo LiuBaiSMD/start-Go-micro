@@ -9,7 +9,7 @@ import (
 	"github.com/micro/go-micro/errors"
 	api "goPRJ/proto/APIPT"
 	proto "goPRJ/proto/APIPT"
-	"golang.org/x/net/context"
+	"context"
 )
 
 type Example struct{}
@@ -18,7 +18,7 @@ type Foo struct{}
 
 type Test struct{}
 // Example.Call is a method which will be served by http request /example/call
-// In the event we see /[service]/[method] the [service] is used as part of the method
+// In the eventPRJ we see /[service]/[method] the [service] is used as part of the method
 // E.g /example/call goes to go.micro.api.example Example.Call
 func (e *Example) Call(ctx context.Context, req *api.Request, rsp *api.Response) error {
 	log.Print("Received Example.Call request")

@@ -5,7 +5,7 @@ import (
 
         "github.com/micro/go-micro"
         proto "goPRJ/proto/greeterPT"
-        "golang.org/x/net/context"
+        "context"
 )
 
 type Greeter struct{}
@@ -23,7 +23,7 @@ func main() {
 
         function.Init()
 
-    function.Handle(new(Greeter))
+        function.Handle(new(Greeter))
 
         if err := function.Run(); err != nil {
                 log.Fatal(err)

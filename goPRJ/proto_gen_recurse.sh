@@ -14,7 +14,7 @@ function read_dir(){
             else
                 # 取文件后缀
                 extension=${file##*.}
-                if [[ ${extension} == "proto" ]]
+                if [[ ${extension} == ".proto" ]]
                 then
                     cur_path=`pwd`
                     now_path=${cur_path}/$1
