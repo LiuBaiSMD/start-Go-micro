@@ -1,4 +1,4 @@
-package main
+package apiPRJ
 //
 //import (
 //	"encoding/json"

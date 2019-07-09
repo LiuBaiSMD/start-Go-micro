@@ -4,7 +4,7 @@ import (
         "log"
 
         "github.com/micro/go-micro"
-        proto "goPRJ/proto/greeterPT"
+        proto "greeterPRJ/greeterPT"
         "context"
 )
 

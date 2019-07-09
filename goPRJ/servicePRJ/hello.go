@@ -2,7 +2,7 @@ package main
 
 import (
     "fmt"
-    hello_world "goPRJ/proto/helloPT" // import proto生成的类
+    hello_world "servicePRJ/helloPT" // import proto生成的类
     "github.com/micro/go-micro"
     "context"
 )

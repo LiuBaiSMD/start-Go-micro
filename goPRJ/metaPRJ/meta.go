@@ -1,12 +1,14 @@
 package main
 
 import (
+	"github.com/micro/go-micro/api"
+	"github.com/micro/go-micro/api/handler/rpc"
 	"log"
 
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/errors"
 	proto "metaPRJ/metaPT"
-
+	rapi "github.com/micro/go-micro/api/handler/api"
 	"context"
 )
 
@@ -40,25 +42,25 @@ func main() {
 	)
 
 	service.Init()
-	// 注册Example接口处理器
-	//proto.RegisterExampleHandler(service.Server(), new(Example), api.WithEndpoint(&api.Endpoint{
-	//	// 接口方法，一定要在proto接口中存在，不能是类的自有方法
-	//	Name: "Example.Call",
-	//	// http请求路由，支持POSIX风格
-	//	Path: []string{"/example"},
-	//	// 支持的方法类型
-	//	Method: []string{"POST"},
-	//	// 该接口使用的API转发模式
-	//	Handler: rpc.Handler,
-	//}))
-	//
-	//// 注册Foo接口处理器
-	//proto.RegisterFooHandler(service.Server(), new(Foo), api.WithEndpoint(&api.Endpoint{
-	//	Name:    "Foo.Bar",
-	//	Path:    []string{"/foo/bar"},
-	//	Method:  []string{"POST"},
-	//	Handler: rapi.Handler,
-	//}))
+	//注册Example接口处理器
+	proto.RegisterExampleHandler(service.Server(), new(Example), api.WithEndpoint(&api.Endpoint{
+		// 接口方法，一定要在proto接口中存在，不能是类的自有方法
+		Name: "Example.Call",
+		// http请求路由，支持POSIX风格
+		Path: []string{"/example"},
+		// 支持的方法类型
+		Method: []string{"POST"},
+		// 该接口使用的API转发模式
+		Handler: rpc.Handler,
+	}))
+
+	// 注册Foo接口处理器
+	proto.RegisterFooHandler(service.Server(), new(Foo), api.WithEndpoint(&api.Endpoint{
+		Name:    "Foo.Bar",
+		Path:    []string{"/foo/bar"},
+		Method:  []string{"POST"},
+		Handler: rapi.Handler,
+	}))
 
 	if err := service.Run(); err != nil {
 		log.Fatal(err)

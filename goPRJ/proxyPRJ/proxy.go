@@ -38,13 +38,17 @@ func exampleCall(w http.ResponseWriter, r *http.Request) {
 
 // exampleFooBar will handle /example/foo/bar
 func exampleFooBar(w http.ResponseWriter, r *http.Request) {
+	name := r.Form.Get("name")
+	fmt.Println("hello")
 	if r.Method != "POST" {
+		fmt.Println("not post")
 		http.Error(
 			w,
 			errors.BadRequest("go.micro.api.example", "require post").Error(),
 			400,
 		)
-		return
+
+
 	}
 
 	if len(r.Header.Get("Content-Type")) == 0 {
@@ -53,7 +57,6 @@ func exampleFooBar(w http.ResponseWriter, r *http.Request) {
 			errors.BadRequest("go.micro.api.example", "need content-type").Error(),
 			400,
 		)
-		return
 	}
 
 	if r.Header.Get("Content-Type") != "application/json" {
@@ -64,7 +67,13 @@ func exampleFooBar(w http.ResponseWriter, r *http.Request) {
 		)
 		return
 	}
-
+	b, _ := json.Marshal(map[string]interface{}{
+		"foo message": "got your message " + name,
+	})
+	// write response
+	w.Write(b)
+	fmt.Println("over")
+	return
 	// do something
 }
 
@@ -72,7 +81,8 @@ func uploadFile(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "GET" {
 
-		t, _ := template.New("foo").Parse(`<html>
+		t, _ := template.New("foo").Parse(
+			`<html>
 <head>
        <title>Upload file</title>
 </head>

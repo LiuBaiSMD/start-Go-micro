@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://www.runoob.com/w3cnote/python-func-decorators.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+  <meta property="qc:admins" content="465267610762567726375">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Python 函数装饰器 | 菜鸟教程</title>
+
+  <link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="canonical" href="http://www.runoob.com/w3cnote/python-func-decorators.html">
+<meta name="keywords" content="Python 函数装饰器">
+<meta name="description" content="装饰器(Decorators)是 Python 的一个重要部分。简单地说：他们是修改其他函数的功能的函数。他们有助于让我们的代码更简短，也更Pythonic（Python范儿）。大多数初学者不知道在哪儿使用它们，所以我将要分享下，哪些区域里装饰器可以让你的代码更简洁。 首先，让我们讨论下如何写你自己的装饰器。 这可能是最难掌握的概念之一。我们会每次只讨论一个步骤，这样你能完全理解它。  一切皆对象 首先我们来理解下 Python 中的函..">
+		
+	<link rel="shortcut icon" href="https://static.runoob.com/images/favicon.ico" mce_href="//static.runoob.com/images/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="./1_files/style.css" type="text/css" media="all">	
+	<link rel="stylesheet" href="./1_files/font-awesome.min.css" media="all">	
+  <!--[if gte IE 9]><!-->
+  <script type="text/javascript" async="" src="./1_files/analytics.js"></script><script src="./1_files/hm.js"></script><script src="./1_files/jquery.min.js"></script>
+  <!--<![endif]-->
+  <!--[if lt IE 9]>
+     <script src="//cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+     <script src="//cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <![endif]-->
+  <link rel="apple-touch-icon" href="https://static.runoob.com/images/icon/mobile-icon.png">
+  <meta name="apple-mobile-web-app-title" content="菜鸟教程">
+<link rel="stylesheet" type="text/css" href="./1_files/prettify.css"><script charset="utf-8" src="chrome-extension://jgphnjokjhjlcnnajmfjlacjnjkhleah/js/btype.js"></script><script type="text/javascript" charset="utf-8" src="chrome-extension://jgphnjokjhjlcnnajmfjlacjnjkhleah/js/chrome.js"></script><style type="text/css">
+:root .container > .ads,
+:root .container > a.mid-wrapper,
+:root .main[style="border:#7D8C8E solid 1px;height: 23px;"],
+:root .tooltip > #tp,
+:root .adsbygoogle,
+:root .advertise-here
+{ display: none !important; }
+:root *[imhoof4][hidden] { display: none !important; }</style></head>
+<body style="">
+
+<!--  头部 -->
+<div class="container logo-search">
+
+  <div class="col search row-search-mobile">
+    <form action="https://www.runoob.com/w3cnote/index.php">
+      <input class="placeholder" placeholder="搜索……" name="s" autocomplete="off">
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col logo">
+      <h1><a href="https://www.runoob.com/">菜鸟教程 -- 学的不仅是技术，更是梦想！</a></h1>
+    </div>
+        <div class="col right-list"> 
+    <button class="btn btn-responsive-nav btn-inverse" data-toggle="collapse" data-target=".nav-main-collapse" id="pull" style=""> <i class="fa fa-navicon"></i> </button>
+    </div>
+        <div class="col search search-desktop last">
+      <form action="https://www.runoob.com/" target="_blank">
+        <input class="placeholder" id="s" name="s" placeholder="搜索……" autocomplete="off">
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- 导航栏 -->
+<div class="container navigation">
+	<div class="row">
+		<div class="col nav">
+			
+
+						<ul class="pc-nav" id="note-nav">
+				<li><a href="https://www.runoob.com/">首页</a></li>
+				<li><a href="https://www.runoob.com/w3cnote">笔记首页</a></li>
+				<li><a href="https://www.runoob.com/w3cnote_genre/android" title="Android 基础入门教程">Android</a></li>
+				<li><a href="https://www.runoob.com/w3cnote/es6-tutorial.html" title="ES6 教程">ES6 教程</a></li>
+				<li><a href="https://www.runoob.com/w3cnote/ten-sorting-algorithm.html" title="排序算法">排序算法</a></li>
+				<li><a href="https://www.runoob.com/w3cnote_genre/coderlife" title="程序员人生">程序员人生</a></li>
+				<li><a href="https://www.runoob.com/w3cnote_genre/joke" title="程序员笑话">程序员笑话</a></li>
+				<li><a href="https://www.runoob.com/w3cnote_genre/code" title="编程技术">编程技术</a></li> 
+				<!-- 
+				<li><a href="/w3cnote/knowledge-start.html" style="font-weight: bold;"onclick="_hmt.push(['_trackEvent', '星球', 'click', 'start'])" title="我的圈子">我的圈子</a></li>
+				
+				
+				<li><a target="_blank" href="/shoppinglist" rel="nofollow">知识店铺</a></li> 
+		-->
+			</ul>
+						
+      		
+			<ul class="mobile-nav">
+				<li><a href="https://www.runoob.com/w3cnote">首页</a></li>
+				<li><a href="https://www.runoob.com/w3cnote_genre/android" target="_blank" title="Android 基础入门教程">Android</a></li>
+				<li><a href="https://www.runoob.com/w3cnote/es6-tutorial.html" target="_blank" title="ES6 教程">ES6</a></li>
+				<li><a href="https://www.runoob.com/w3cnote_genre/joke" target="_blank" title="程序员笑话">逗乐</a></li>
+				
+				<a href="javascript:void(0)" class="search-reveal">Search</a> 
+			</ul>
+			
+		</div>
+	</div>
+</div>
+
+
+<!--  内容  -->
+<div class="container main">
+	<div class="row">
+
+		<div class="col middle-column big-middle-column">
+	 			<div class="article">
+			<div class="article-heading">
+				<h2>Python 函数装饰器</h2>				<h3><em>分类</em> <a href="https://www.runoob.com/w3cnote_genre/code" title="编程技术">编程技术</a> </h3>
+			</div>
+			<div class="article-body note-body">
+				<div class="article-intro">
+					<p>装饰器(Decorators)是 Python 的一个重要部分。简单地说：他们是修改其他函数的功能的函数。他们有助于让我们的代码更简短，也更Pythonic（Python范儿）。大多数初学者不知道在哪儿使用它们，所以我将要分享下，哪些区域里装饰器可以让你的代码更简洁。
+首先，让我们讨论下如何写你自己的装饰器。</p>
+<p>这可能是最难掌握的概念之一。我们会每次只讨论一个步骤，这样你能完全理解它。</p>
+<h3>
+一切皆对象</h3>
+<p>首先我们来理解下 Python 中的函数:</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-identifier">name</span><span class="hl-code">=</span><span class="hl-quotes">"</span><span class="hl-string">yasoob</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-quotes">"</span><span class="hl-string">hi </span><span class="hl-quotes">"</span><span class="hl-code"> + </span><span class="hl-identifier">name</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># output: 'hi yasoob'</span><span class="hl-code">
+ 
+</span><span class="hl-comment"># 我们甚至可以将一个函数赋值给一个变量，比如</span><span class="hl-code">
+</span><span class="hl-identifier">greet</span><span class="hl-code"> = </span><span class="hl-identifier">hi</span><span class="hl-code">
+</span><span class="hl-comment"># 我们这里没有在使用小括号，因为我们并不是在调用hi函数</span><span class="hl-code">
+</span><span class="hl-comment"># 而是在将它放在greet变量里头。我们尝试运行下这个</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">greet</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># output: 'hi yasoob'</span><span class="hl-code">
+ 
+</span><span class="hl-comment"># 如果我们删掉旧的hi函数，看看会发生什么！</span><span class="hl-code">
+</span><span class="hl-reserved">del</span><span class="hl-code"> </span><span class="hl-identifier">hi</span><span class="hl-code">
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs: NameError</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">greet</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs: 'hi yasoob'</span></div>
+</div>
+</div>
+<h3>在函数中定义函数</h3>
+<p>刚才那些就是函数的基本知识了。我们来让你的知识更进一步。在 Python 中我们可以在一个函数中定义另一个函数：</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-identifier">name</span><span class="hl-code">=</span><span class="hl-quotes">"</span><span class="hl-string">yasoob</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">now you are inside the hi() function</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">greet</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-quotes">"</span><span class="hl-string">now you are in the greet() function</span><span class="hl-quotes">"</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">welcome</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-quotes">"</span><span class="hl-string">now you are in the welcome() function</span><span class="hl-quotes">"</span><span class="hl-code">
+ 
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">greet</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">welcome</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">now you are back in the hi() function</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#output:now you are inside the hi() function</span><span class="hl-code">
+</span><span class="hl-comment">#       now you are in the greet() function</span><span class="hl-code">
+</span><span class="hl-comment">#       now you are in the welcome() function</span><span class="hl-code">
+</span><span class="hl-comment">#       now you are back in the hi() function</span><span class="hl-code">
+ 
+</span><span class="hl-comment"># 上面展示了无论何时你调用hi(), greet()和welcome()将会同时被调用。</span><span class="hl-code">
+</span><span class="hl-comment"># 然后greet()和welcome()函数在hi()函数之外是不能访问的，比如：</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">greet</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs: NameError: name 'greet' is not defined</span></div>
+</div>
+</div>
+<p>那现在我们知道了可以在函数中定义另外的函数。也就是说：我们可以创建嵌套的函数。现在你需要再多学一点，就是函数也能返回函数。</p>
+<h3>
+从函数中返回函数</h3>
+<p>其实并不需要在一个函数里去执行另一个函数，我们也可以将其作为输出返回出来：</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-identifier">name</span><span class="hl-code">=</span><span class="hl-quotes">"</span><span class="hl-string">yasoob</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">greet</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-quotes">"</span><span class="hl-string">now you are in the greet() function</span><span class="hl-quotes">"</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">welcome</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-quotes">"</span><span class="hl-string">now you are in the welcome() function</span><span class="hl-quotes">"</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">if</span><span class="hl-code"> </span><span class="hl-identifier">name</span><span class="hl-code"> == </span><span class="hl-quotes">"</span><span class="hl-string">yasoob</span><span class="hl-quotes">"</span><span class="hl-code">:
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">greet</span><span class="hl-code">
+    </span><span class="hl-reserved">else</span><span class="hl-code">:
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">welcome</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">a</span><span class="hl-code"> = </span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">a</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs: &lt;function greet at 0x7f2143c01500&gt;</span><span class="hl-code">
+ 
+</span><span class="hl-comment">#上面清晰地展示了`a`现在指向到hi()函数中的greet()函数</span><span class="hl-code">
+</span><span class="hl-comment">#现在试试这个</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">a</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs: now you are in the greet() function</span></div>
+</div>
+</div>
+<p>再次看看这个代码。在 if/else 语句中我们返回 greet 和 welcome，而不是 greet() 和 welcome()。为什么那样？这是因为当你把一对小括号放在后面，这个函数就会执行；然而如果你不放括号在它后面，那它可以被到处传递，并且可以赋值给别的变量而不去执行它。
+你明白了吗？让我再稍微多解释点细节。</p>
+<p>当我们写下 <span class="marked">a = hi()</span>，hi() 会被执行，而由于 name 参数默认是 yasoob，所以函数 greet 被返回了。如果我们把语句改为 <span class="marked">a = hi(name = "ali")</span>，那么 welcome 函数将被返回。我们还可以打印出 <span class="marked">hi()()</span>，这会输出 <strong>now you are in the greet() function</strong>。</p>
+<h3>将函数作为参数传给另一个函数</h3>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">hi</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-quotes">"</span><span class="hl-string">hi yasoob!</span><span class="hl-quotes">"</span><span class="hl-code">
+ 
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">doSomethingBeforeHi</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am doing some boring work before executing hi()</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">doSomethingBeforeHi</span><span class="hl-brackets">(</span><span class="hl-identifier">hi</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs:I am doing some boring work before executing hi()</span><span class="hl-code">
+</span><span class="hl-comment">#        hi yasoob!</span></div>
+</div>
+</div>
+<p>现在你已经具备所有必需知识，来进一步学习装饰器真正是什么了。装饰器让你在一个函数的前后去执行代码。</p>
+<h3>
+你的第一个装饰器</h3>
+<p>在上一个例子里，其实我们已经创建了一个装饰器！现在我们修改下上一个装饰器，并编写一个稍微更有用点的程序：</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">a_new_decorator</span><span class="hl-brackets">(</span><span class="hl-identifier">a_func</span><span class="hl-brackets">)</span><span class="hl-code">:
+ 
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">wrapTheFunction</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am doing some boring work before executing a_func()</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+        </span><span class="hl-identifier">a_func</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+        </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am doing some boring work after executing a_func()</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">wrapTheFunction</span><span class="hl-code">
+ 
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am the function which needs some decoration to remove my foul smell</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs: "I am the function which needs some decoration to remove my foul smell"</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-code"> = </span><span class="hl-identifier">a_new_decorator</span><span class="hl-brackets">(</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#now a_function_requiring_decoration is wrapped by wrapTheFunction()</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs:I am doing some boring work before executing a_func()</span><span class="hl-code">
+</span><span class="hl-comment">#        I am the function which needs some decoration to remove my foul smell</span><span class="hl-code">
+</span><span class="hl-comment">#        I am doing some boring work after executing a_func()</span></div>
+</div>
+</div>
+<p>你看明白了吗？我们刚刚应用了之前学习到的原理。这正是 python 中装饰器做的事情！它们封装一个函数，并且用这样或者那样的方式来修改它的行为。现在你也许疑惑，我们在代码里并没有使用 <span class="marked">@</span> 符号？那只是一个简短的方式来生成一个被装饰的函数。这里是我们如何使用 <span class="marked">@</span> 来运行之前的代码：</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-code">@</span><span class="hl-identifier">a_new_decorator</span><span class="hl-code">
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-quotes">"""</span><span class="hl-string">Hey you! Decorate me!</span><span class="hl-quotes">"""</span><span class="hl-code">
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am the function which needs some decoration to </span><span class="hl-quotes">"</span><span class="hl-code">
+          </span><span class="hl-quotes">"</span><span class="hl-string">remove my foul smell</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment">#outputs: I am doing some boring work before executing a_func()</span><span class="hl-code">
+</span><span class="hl-comment">#         I am the function which needs some decoration to remove my foul smell</span><span class="hl-code">
+</span><span class="hl-comment">#         I am doing some boring work after executing a_func()</span><span class="hl-code">
+ 
+</span><span class="hl-comment">#the @a_new_decorator is just a short way of saying:</span><span class="hl-code">
+</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-code"> = </span><span class="hl-identifier">a_new_decorator</span><span class="hl-brackets">(</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">)</span></div>
+</div>
+</div>
+<p>希望你现在对 Python 装饰器的工作原理有一个基本的理解。如果我们运行如下代码会存在一个问题：</p>
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">print</span><span class="pun">(</span><span class="pln">a_function_requiring_decoration</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+</span><span class="com"># Output: wrapTheFunction</span></pre>
+<p>这并不是我们想要的！Ouput输出应该是"a_function_requiring_decoration"。这里的函数被warpTheFunction替代了。它重写了我们函数的名字和注释文档(docstring)。幸运的是Python提供给我们一个简单的函数来解决这个问题，那就是functools.wraps。我们修改上一个例子来使用functools.wraps：</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">from</span><span class="hl-code"> </span><span class="hl-identifier">functools</span><span class="hl-code"> </span><span class="hl-reserved">import</span><span class="hl-code"> </span><span class="hl-identifier">wraps</span><span class="hl-code">
+ 
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">a_new_decorator</span><span class="hl-brackets">(</span><span class="hl-identifier">a_func</span><span class="hl-brackets">)</span><span class="hl-code">:
+    @</span><span class="hl-identifier">wraps</span><span class="hl-brackets">(</span><span class="hl-identifier">a_func</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">wrapTheFunction</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am doing some boring work before executing a_func()</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-identifier">a_func</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am doing some boring work after executing a_func()</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">wrapTheFunction</span><span class="hl-code">
+ 
+@</span><span class="hl-identifier">a_new_decorator</span><span class="hl-code">
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-quotes">"""</span><span class="hl-string">Hey yo! Decorate me!</span><span class="hl-quotes">"""</span><span class="hl-code">
+    </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">I am the function which needs some decoration to </span><span class="hl-quotes">"</span><span class="hl-code">
+          </span><span class="hl-quotes">"</span><span class="hl-string">remove my foul smell</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">a_function_requiring_decoration</span><span class="hl-code">.</span><span class="hl-identifier">__name__</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># Output: a_function_requiring_decoration</span></div>
+</div>
+</div>
+<p>现在好多了。我们接下来学习装饰器的一些常用场景。</p>
+<p>蓝本规范:</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">from</span><span class="hl-code"> </span><span class="hl-identifier">functools</span><span class="hl-code"> </span><span class="hl-reserved">import</span><span class="hl-code"> </span><span class="hl-identifier">wraps</span><span class="hl-code">
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">decorator_name</span><span class="hl-brackets">(</span><span class="hl-identifier">f</span><span class="hl-brackets">)</span><span class="hl-code">:
+    @</span><span class="hl-identifier">wraps</span><span class="hl-brackets">(</span><span class="hl-identifier">f</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">decorated</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-reserved">if</span><span class="hl-code"> </span><span class="hl-reserved">not</span><span class="hl-code"> </span><span class="hl-identifier">can_run</span><span class="hl-code">:
+            </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-quotes">"</span><span class="hl-string">Function will not run</span><span class="hl-quotes">"</span><span class="hl-code">
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">f</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">decorated</span><span class="hl-code">
+ 
+@</span><span class="hl-identifier">decorator_name</span><span class="hl-code">
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">func</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-identifier">return</span><span class="hl-brackets">(</span><span class="hl-quotes">"</span><span class="hl-string">Function is running</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">can_run</span><span class="hl-code"> = </span><span class="hl-reserved">True</span><span class="hl-code">
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># Output: Function is running</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">can_run</span><span class="hl-code"> = </span><span class="hl-reserved">False</span><span class="hl-code">
+</span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># Output: Function will not run</span></div>
+</div>
+</div>
+<p><strong>注意：</strong><span class="marked">@wraps</span>接受一个函数来进行装饰，并加入了复制函数名称、注释文档、参数列表等等的功能。这可以让我们在装饰器里面访问在装饰之前的函数的属性。</p><hr>
+<h2>
+使用场景</h2>
+<p>现在我们来看一下装饰器在哪些地方特别耀眼，以及使用它可以让一些事情管理起来变得更简单。</p>
+<h3>
+授权(Authorization)</h3>
+<p>装饰器能有助于检查某个人是否被授权去使用一个web应用的端点(endpoint)。它们被大量使用于Flask和Django web框架中。这里是一个例子来使用基于装饰器的授权：</p><div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">from</span><span class="hl-code"> </span><span class="hl-identifier">functools</span><span class="hl-code"> </span><span class="hl-reserved">import</span><span class="hl-code"> </span><span class="hl-identifier">wraps</span><span class="hl-code">
+ 
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">requires_auth</span><span class="hl-brackets">(</span><span class="hl-identifier">f</span><span class="hl-brackets">)</span><span class="hl-code">:
+    @</span><span class="hl-identifier">wraps</span><span class="hl-brackets">(</span><span class="hl-identifier">f</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">decorated</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-identifier">auth</span><span class="hl-code"> = </span><span class="hl-identifier">request</span><span class="hl-code">.</span><span class="hl-identifier">authorization</span><span class="hl-code">
+        </span><span class="hl-reserved">if</span><span class="hl-code"> </span><span class="hl-reserved">not</span><span class="hl-code"> </span><span class="hl-identifier">auth</span><span class="hl-code"> </span><span class="hl-reserved">or</span><span class="hl-code"> </span><span class="hl-reserved">not</span><span class="hl-code"> </span><span class="hl-identifier">check_auth</span><span class="hl-brackets">(</span><span class="hl-identifier">auth</span><span class="hl-code">.</span><span class="hl-identifier">username</span><span class="hl-code">, </span><span class="hl-identifier">auth</span><span class="hl-code">.</span><span class="hl-identifier">password</span><span class="hl-brackets">)</span><span class="hl-code">:
+            </span><span class="hl-identifier">authenticate</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">f</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">decorated</span></div>
+</div>
+</div>
+<h3>
+日志(Logging)</h3>
+<p>日志是装饰器运用的另一个亮点。这是个例子：</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">from</span><span class="hl-code"> </span><span class="hl-identifier">functools</span><span class="hl-code"> </span><span class="hl-reserved">import</span><span class="hl-code"> </span><span class="hl-identifier">wraps</span><span class="hl-code">
+ 
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">logit</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">)</span><span class="hl-code">:
+    @</span><span class="hl-identifier">wraps</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">with_logging</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-code">.</span><span class="hl-identifier">__name__</span><span class="hl-code"> + </span><span class="hl-quotes">"</span><span class="hl-string"> was called</span><span class="hl-quotes">"</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">func</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">with_logging</span><span class="hl-code">
+ 
+@</span><span class="hl-identifier">logit</span><span class="hl-code">
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">addition_func</span><span class="hl-brackets">(</span><span class="hl-identifier">x</span><span class="hl-brackets">)</span><span class="hl-code">:
+   </span><span class="hl-quotes">"""</span><span class="hl-string">Do some math.</span><span class="hl-quotes">"""</span><span class="hl-code">
+   </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">x</span><span class="hl-code"> + </span><span class="hl-identifier">x</span><span class="hl-code">
+ 
+ 
+</span><span class="hl-identifier">result</span><span class="hl-code"> = </span><span class="hl-identifier">addition_func</span><span class="hl-brackets">(</span><span class="hl-number">4</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># Output: addition_func was called</span></div>
+</div>
+</div>
+<p>我敢肯定你已经在思考装饰器的一个其他聪明用法了。</p>
+<hr><h2>
+带参数的装饰器</h2>
+<p>来想想这个问题，难道@wraps不也是个装饰器吗？但是，它接收一个参数，就像任何普通的函数能做的那样。那么，为什么我们不也那样做呢？
+这是因为，当你使用@my_decorator语法时，你是在应用一个以单个函数作为参数的一个包裹函数。记住，Python里每个东西都是一个对象，而且这包括函数！记住了这些，我们可以编写一下能返回一个包裹函数的函数。</p>
+<h3>在函数中嵌入装饰器</h3>
+<p>我们回到日志的例子，并创建一个包裹函数，能让我们指定一个用于输出的日志文件。</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">from</span><span class="hl-code"> </span><span class="hl-identifier">functools</span><span class="hl-code"> </span><span class="hl-reserved">import</span><span class="hl-code"> </span><span class="hl-identifier">wraps</span><span class="hl-code">
+ 
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">logit</span><span class="hl-brackets">(</span><span class="hl-identifier">logfile</span><span class="hl-code">=</span><span class="hl-quotes">'</span><span class="hl-string">out.log</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">logging_decorator</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">)</span><span class="hl-code">:
+        @</span><span class="hl-identifier">wraps</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">wrapped_function</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">:
+            </span><span class="hl-identifier">log_string</span><span class="hl-code"> = </span><span class="hl-identifier">func</span><span class="hl-code">.</span><span class="hl-identifier">__name__</span><span class="hl-code"> + </span><span class="hl-quotes">"</span><span class="hl-string"> was called</span><span class="hl-quotes">"</span><span class="hl-code">
+            </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">log_string</span><span class="hl-brackets">)</span><span class="hl-code">
+            </span><span class="hl-comment"># 打开logfile，并写入内容</span><span class="hl-code">
+            </span><span class="hl-identifier">with</span><span class="hl-code"> </span><span class="hl-builtin">open</span><span class="hl-brackets">(</span><span class="hl-identifier">logfile</span><span class="hl-code">, </span><span class="hl-quotes">'</span><span class="hl-string">a</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code"> </span><span class="hl-identifier">as</span><span class="hl-code"> </span><span class="hl-identifier">opened_file</span><span class="hl-code">:
+                </span><span class="hl-comment"># 现在将日志打到指定的logfile</span><span class="hl-code">
+                </span><span class="hl-identifier">opened_file</span><span class="hl-code">.</span><span class="hl-identifier">write</span><span class="hl-brackets">(</span><span class="hl-identifier">log_string</span><span class="hl-code"> + </span><span class="hl-quotes">'</span><span class="hl-special">\n</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code">
+            </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">func</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">wrapped_function</span><span class="hl-code">
+    </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">logging_decorator</span><span class="hl-code">
+ 
+@</span><span class="hl-identifier">logit</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">myfunc1</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-reserved">pass</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">myfunc1</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># Output: myfunc1 was called</span><span class="hl-code">
+</span><span class="hl-comment"># 现在一个叫做 out.log 的文件出现了，里面的内容就是上面的字符串</span><span class="hl-code">
+ 
+@</span><span class="hl-identifier">logit</span><span class="hl-brackets">(</span><span class="hl-identifier">logfile</span><span class="hl-code">=</span><span class="hl-quotes">'</span><span class="hl-string">func2.log</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">myfunc2</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-reserved">pass</span><span class="hl-code">
+ 
+</span><span class="hl-identifier">myfunc2</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+</span><span class="hl-comment"># Output: myfunc2 was called</span><span class="hl-code">
+</span><span class="hl-comment"># 现在一个叫做 func2.log 的文件出现了，里面的内容就是上面的字符串</span></div>
+</div>
+</div>
+<hr><h2>
+装饰器类</h2>
+<p>现在我们有了能用于正式环境的logit装饰器，但当我们的应用的某些部分还比较脆弱时，异常也许是需要更紧急关注的事情。比方说有时你只想打日志到一个文件。而有时你想把引起你注意的问题发送到一个email，同时也保留日志，留个记录。这是一个使用继承的场景，但目前为止我们只看到过用来构建装饰器的函数。</p>
+<p>幸运的是，类也可以用来构建装饰器。那我们现在以一个类而不是一个函数的方式，来重新构建logit。</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">from</span><span class="hl-code"> </span><span class="hl-identifier">functools</span><span class="hl-code"> </span><span class="hl-reserved">import</span><span class="hl-code"> </span><span class="hl-identifier">wraps</span><span class="hl-code">
+ 
+</span><span class="hl-reserved">class</span><span class="hl-code"> </span><span class="hl-identifier">logit</span><span class="hl-brackets">(</span><span class="hl-identifier">object</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">__init__</span><span class="hl-brackets">(</span><span class="hl-identifier">self</span><span class="hl-code">, </span><span class="hl-identifier">logfile</span><span class="hl-code">=</span><span class="hl-quotes">'</span><span class="hl-string">out.log</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-identifier">self</span><span class="hl-code">.</span><span class="hl-identifier">logfile</span><span class="hl-code"> = </span><span class="hl-identifier">logfile</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">__call__</span><span class="hl-brackets">(</span><span class="hl-identifier">self</span><span class="hl-code">, </span><span class="hl-identifier">func</span><span class="hl-brackets">)</span><span class="hl-code">:
+        @</span><span class="hl-identifier">wraps</span><span class="hl-brackets">(</span><span class="hl-identifier">func</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">wrapped_function</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">:
+            </span><span class="hl-identifier">log_string</span><span class="hl-code"> = </span><span class="hl-identifier">func</span><span class="hl-code">.</span><span class="hl-identifier">__name__</span><span class="hl-code"> + </span><span class="hl-quotes">"</span><span class="hl-string"> was called</span><span class="hl-quotes">"</span><span class="hl-code">
+            </span><span class="hl-identifier">print</span><span class="hl-brackets">(</span><span class="hl-identifier">log_string</span><span class="hl-brackets">)</span><span class="hl-code">
+            </span><span class="hl-comment"># 打开logfile并写入</span><span class="hl-code">
+            </span><span class="hl-identifier">with</span><span class="hl-code"> </span><span class="hl-builtin">open</span><span class="hl-brackets">(</span><span class="hl-identifier">self</span><span class="hl-code">.</span><span class="hl-identifier">logfile</span><span class="hl-code">, </span><span class="hl-quotes">'</span><span class="hl-string">a</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code"> </span><span class="hl-identifier">as</span><span class="hl-code"> </span><span class="hl-identifier">opened_file</span><span class="hl-code">:
+                </span><span class="hl-comment"># 现在将日志打到指定的文件</span><span class="hl-code">
+                </span><span class="hl-identifier">opened_file</span><span class="hl-code">.</span><span class="hl-identifier">write</span><span class="hl-brackets">(</span><span class="hl-identifier">log_string</span><span class="hl-code"> + </span><span class="hl-quotes">'</span><span class="hl-special">\n</span><span class="hl-quotes">'</span><span class="hl-brackets">)</span><span class="hl-code">
+            </span><span class="hl-comment"># 现在，发送一个通知</span><span class="hl-code">
+            </span><span class="hl-identifier">self</span><span class="hl-code">.</span><span class="hl-identifier">notify</span><span class="hl-brackets">(</span><span class="hl-brackets">)</span><span class="hl-code">
+            </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">func</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">
+        </span><span class="hl-reserved">return</span><span class="hl-code"> </span><span class="hl-identifier">wrapped_function</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">notify</span><span class="hl-brackets">(</span><span class="hl-identifier">self</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-comment"># logit只打日志，不做别的</span><span class="hl-code">
+        </span><span class="hl-reserved">pass</span></div>
+</div>
+</div>
+<p>这个实现有一个附加优势，在于比嵌套函数的方式更加整洁，而且包裹一个函数还是使用跟以前一样的语法：</p>
+<pre class="prettyprint prettyprinted" style=""><span class="lit">@logit</span><span class="pun">()</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> myfunc1</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">pass</span></pre>
+<p>现在，我们给 logit 创建子类，来添加 email 的功能(虽然 email 这个话题不会在这里展开)。</p>
+<div class="example"> 
+<div class="example_code">
+<div class="hl-main"><span class="hl-reserved">class</span><span class="hl-code"> </span><span class="hl-identifier">email_logit</span><span class="hl-brackets">(</span><span class="hl-identifier">logit</span><span class="hl-brackets">)</span><span class="hl-code">:
+    </span><span class="hl-quotes">'''</span><span class="hl-string">
+    一个logit的实现版本，可以在函数调用时发送email给管理员
+    </span><span class="hl-quotes">'''</span><span class="hl-code">
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">__init__</span><span class="hl-brackets">(</span><span class="hl-identifier">self</span><span class="hl-code">, </span><span class="hl-identifier">email</span><span class="hl-code">=</span><span class="hl-quotes">'</span><span class="hl-string">admin@myproject.com</span><span class="hl-quotes">'</span><span class="hl-code">, *</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-identifier">self</span><span class="hl-code">.</span><span class="hl-identifier">email</span><span class="hl-code"> = </span><span class="hl-identifier">email</span><span class="hl-code">
+        </span><span class="hl-builtin">super</span><span class="hl-brackets">(</span><span class="hl-identifier">email_logit</span><span class="hl-code">, </span><span class="hl-identifier">self</span><span class="hl-brackets">)</span><span class="hl-code">.</span><span class="hl-identifier">__init__</span><span class="hl-brackets">(</span><span class="hl-code">*</span><span class="hl-identifier">args</span><span class="hl-code">, **</span><span class="hl-identifier">kwargs</span><span class="hl-brackets">)</span><span class="hl-code">
+ 
+    </span><span class="hl-reserved">def</span><span class="hl-code"> </span><span class="hl-identifier">notify</span><span class="hl-brackets">(</span><span class="hl-identifier">self</span><span class="hl-brackets">)</span><span class="hl-code">:
+        </span><span class="hl-comment"># 发送一封email到self.email</span><span class="hl-code">
+        </span><span class="hl-comment"># 这里就不做实现了</span><span class="hl-code">
+        </span><span class="hl-reserved">pass</span></div>
+</div>
+</div>
+<p>从现在起，@email_logit 将会和 @logit 产生同样的效果，但是在打日志的基础上，还会多发送一封邮件给管理员。</p>
+
+
+<blockquote><p>原文地址：https://eastlakeside.gitbooks.io/interpy-zh/content/decorators/</p></blockquote>
+
+				</div>
+			</div>
+			<div class="previous-next-links">
+			<div class="previous-design-link">← <a href="http://www.runoob.com/w3cnote/c-volatile-keyword.html" rel="prev"> C/C++ 中 volatile 关键字详解</a> </div>
+			<div class="next-design-link"><a href="http://www.runoob.com/w3cnote/strlen-and-sizeof.html" rel="next"> 利用 strlen 和 sizeof 求取字符串长度注意事项</a> →</div>
+			</div>
+			<style>
+.wrapper {
+  /*text-transform: uppercase; */
+  background: #ececec;
+  color: #555;
+  cursor: help;
+  font-family: "Gill Sans", Impact, sans-serif;
+  font-size: 20px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+  -webkit-transform: translateZ(0); /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
+}
+
+.wrapper .tooltip {
+  white-space: nowrap;
+  font-size: 14px;
+  text-align: left;
+  background: #96b97d;
+  bottom: 100%;
+  color: #fff;
+  display: block;
+  left: -25px;
+  margin-bottom: 15px;
+  opacity: 0;
+  padding: 14px;
+  pointer-events: none;
+  position: absolute;
+  
+  -webkit-transform: translateY(10px);
+     -moz-transform: translateY(10px);
+      -ms-transform: translateY(10px);
+       -o-transform: translateY(10px);
+          transform: translateY(10px);
+  -webkit-transition: all .25s ease-out;
+     -moz-transition: all .25s ease-out;
+      -ms-transition: all .25s ease-out;
+       -o-transition: all .25s ease-out;
+          transition: all .25s ease-out;
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+     -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+      -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+       -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+          box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+.tooltip a {
+	color:#fff;
+}
+/* This bridges the gap so you can mouse into the tooltip without it disappearing */
+.wrapper .tooltip:before {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}  
+
+/* CSS Triangles - see Trevor's post */
+.wrapper .tooltip:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-top: solid #96b97d 10px;
+  bottom: -10px;
+  content: " ";
+  height: 0;
+  left: 20%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}
+.wrapper .tooltip1 {
+	margin-left: 50px;
+	padding-top: 0px;
+}
+.wrapper:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}
+
+/* IE can just show/hide with no transition */
+.lte8 .wrapper .tooltip {
+  display: none;
+}
+
+.lte8 .wrapper:hover .tooltip {
+  display: block;
+}
+
+</style>
+
+<div class="title" id="comments">
+	<h2 class="">
+    <div class="altblock">
+		    	<i style="font-size:28px;margin-top: 8px;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    	    </div>
+    <span class="mw-headline" id="qa_headline">1  篇笔记</span>
+	<span class="mw-headline" id="user_add_note" style="float:right;line-height: 62px;padding-right: 14px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  写笔记</span>
+    </h2>
+</div>
+<div id="postcomments">
+	<ol class="commentlist">
+		<li class="comment byuser comment-author-tianqixin bypostauthor even thread-even depth-1" id="comment-30620"><span class="comt-f">#1</span><div class="comt-avatar wrapper"><i style="font-size:36px;" class="fa fa-user-circle" aria-hidden="true"></i><div class="tooltip"><p><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;fqas</p><p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;234***657@qq.com</p><p><i class="fa fa-external-link" aria-hidden="true"></i> <a rel="nofollow" target="_blank" href="https://foofish.net/python-decorator.html">&nbsp;&nbsp;参考地址</a></p></div></div><div class="comt-main" id="div-comment-30620"><p>讲 Python 装饰器前，我想先举个例子，虽有点污，但跟装饰器这个话题很贴切。</p>
+
+<p>每个人都有的内裤主要功能是用来遮羞，但是到了冬天它没法为我们防风御寒，咋办？我们想到的一个办法就是把内裤改造一下，让它变得更厚更长，这样一来，它不仅有遮羞功能，还能提供保暖，不过有个问题，这个内裤被我们改造成了长裤后，虽然还有遮羞功能，但本质上它不再是一条真正的内裤了。于是聪明的人们发明长裤，在不影响内裤的前提下，直接把长裤套在了内裤外面，这样内裤还是内裤，有了长裤后宝宝再也不冷了。装饰器就像我们这里说的长裤，在不影响内裤作用的前提下，给我们的身子提供了保暖的功效。</p>
+
+<p>谈装饰器前，还要先要明白一件事，Python 中的函数和 Java、C++不太一样，Python 中的函数可以像普通变量一样当做参数传递给另外一个函数，例如：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">"foo"</span><span class="pun">)</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> bar</span><span class="pun">(</span><span class="pln">func</span><span class="pun">):</span><span class="pln">
+    func</span><span class="pun">()</span><span class="pln">
+
+bar</span><span class="pun">(</span><span class="pln">foo</span><span class="pun">)</span></pre>
+<p>正式回到我们的主题。装饰器本质上是一个 Python 函数或类，它可以让其他函数或类在不需要做任何代码修改的前提下增加额外功能，装饰器的返回值也是一个函数/类对象。它经常用于有切面需求的场景，比如：插入日志、性能测试、事务处理、缓存、权限校验等场景，装饰器是解决这类问题的绝佳设计。有了装饰器，我们就可以抽离出大量与函数功能本身无关的雷同代码到装饰器中并继续重用。概括的讲，装饰器的作用就是为已经存在的对象添加额外的功能。</p>
+
+<p>先来看一个简单例子，虽然实际代码可能比这复杂很多：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">'i am foo'</span><span class="pun">)</span></pre>
+<p>现在有一个新的需求，希望可以记录下函数的执行日志，于是在代码中添加日志代码：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">'i am foo'</span><span class="pun">)</span><span class="pln">
+    logging</span><span class="pun">.</span><span class="pln">info</span><span class="pun">(</span><span class="str">"foo is running"</span><span class="pun">)</span></pre>
+<p>如果函数 bar()、bar2() 也有类似的需求，怎么做？再写一个 logging 在 bar 函数里？这样就造成大量雷同的代码，为了减少重复写代码，我们可以这样做，重新定义一个新的函数：专门处理日志 ，日志处理完之后再执行真正的业务代码</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> use_logging</span><span class="pun">(</span><span class="pln">func</span><span class="pun">):</span><span class="pln">
+    logging</span><span class="pun">.</span><span class="pln">warn</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+    func</span><span class="pun">()</span><span class="pln">
+
+</span><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">'i am foo'</span><span class="pun">)</span><span class="pln">
+
+use_logging</span><span class="pun">(</span><span class="pln">foo</span><span class="pun">)</span></pre>
+<p>这样做逻辑上是没问题的，功能是实现了，但是我们调用的时候不再是调用真正的业务逻辑 foo 函数，而是换成了 use_logging 函数，这就破坏了原有的代码结构， 现在我们不得不每次都要把原来的那个 foo 函数作为参数传递给 use_logging 函数，那么有没有更好的方式的呢？当然有，答案就是装饰器。</p>
+
+<p><strong>简单装饰器</strong></p>
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> use_logging</span><span class="pun">(</span><span class="pln">func</span><span class="pun">):</span><span class="pln">
+
+    </span><span class="kwd">def</span><span class="pln"> wrapper</span><span class="pun">():</span><span class="pln">
+        logging</span><span class="pun">.</span><span class="pln">warn</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">()</span><span class="pln">   </span><span class="com"># 把 foo 当做参数传递进来时，执行func()就相当于执行foo()</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> wrapper
+
+</span><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">'i am foo'</span><span class="pun">)</span><span class="pln">
+
+foo </span><span class="pun">=</span><span class="pln"> use_logging</span><span class="pun">(</span><span class="pln">foo</span><span class="pun">)</span><span class="pln">  </span><span class="com"># 因为装饰器 use_logging(foo) 返回的时函数对象 wrapper，这条语句相当于  foo = wrapper</span><span class="pln">
+foo</span><span class="pun">()</span><span class="pln">                   </span><span class="com"># 执行foo()就相当于执行 wrapper()</span></pre>
+<p>use_logging 就是一个装饰器，它一个普通的函数，它把执行真正业务逻辑的函数 func 包裹在其中，看起来像 foo 被 use_logging 装饰了一样，use_logging 返回的也是一个函数，这个函数的名字叫 wrapper。在这个例子中，函数进入和退出时 ，被称为一个横切面，这种编程方式被称为面向切面的编程。</p>
+
+<p><strong>@ 语法糖</strong></p>
+<p>如果你接触 Python 有一段时间了的话，想必你对 @ 符号一定不陌生了，没错 @ 符号就是装饰器的语法糖，它放在函数开始定义的地方，这样就可以省略最后一步再次赋值的操作。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> use_logging</span><span class="pun">(</span><span class="pln">func</span><span class="pun">):</span><span class="pln">
+
+    </span><span class="kwd">def</span><span class="pln"> wrapper</span><span class="pun">():</span><span class="pln">
+        logging</span><span class="pun">.</span><span class="pln">warn</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">()</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> wrapper
+
+</span><span class="lit">@use_logging</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">"i am foo"</span><span class="pun">)</span><span class="pln">
+
+foo</span><span class="pun">()</span></pre>
+<p>如上所示，有了 @ ，我们就可以省去foo = use_logging(foo)这一句了，直接调用 foo() 即可得到想要的结果。你们看到了没有，foo() 函数不需要做任何修改，只需在定义的地方加上装饰器，调用的时候还是和以前一样，如果我们有其他的类似函数，我们可以继续调用装饰器来修饰函数，而不用重复修改函数或者增加新的封装。这样，我们就提高了程序的可重复利用性，并增加了程序的可读性。</p>
+
+<p>装饰器在 Python 使用如此方便都要归因于 Python 的函数能像普通的对象一样能作为参数传递给其他函数，可以被赋值给其他变量，可以作为返回值，可以被定义在另外一个函数内。</p>
+
+<p><strong>*args、**kwargs</strong></p>
+<p>可能有人问，如果我的业务逻辑函数 foo 需要参数怎么办？比如：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">(</span><span class="pln">name</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">"i am %s"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> name</span><span class="pun">)</span></pre>
+<p>我们可以在定义 wrapper 函数的时候指定参数：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> wrapper</span><span class="pun">(</span><span class="pln">name</span><span class="pun">):</span><span class="pln">
+        logging</span><span class="pun">.</span><span class="pln">warn</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">(</span><span class="pln">name</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> wrapper</span></pre>
+<p>这样 foo 函数定义的参数就可以定义在 wrapper 函数中。这时，又有人要问了，如果 foo 函数接收两个参数呢？三个参数呢？更有甚者，我可能传很多个。当装饰器不知道 foo 到底有多少个参数时，我们可以用 *args 来代替：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> wrapper</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">):</span><span class="pln">
+        logging</span><span class="pun">.</span><span class="pln">warn</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> wrapper</span></pre>
+<p>如此一来，甭管 foo 定义了多少个参数，我都可以完整地传递到 func 中去。这样就不影响 foo 的业务逻辑了。这时还有读者会问，如果 foo 函数还定义了一些关键字参数呢？比如：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">(</span><span class="pln">name</span><span class="pun">,</span><span class="pln"> age</span><span class="pun">=</span><span class="kwd">None</span><span class="pun">,</span><span class="pln"> height</span><span class="pun">=</span><span class="kwd">None</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">"I am %s, age %s, height %s"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> </span><span class="pun">(</span><span class="pln">name</span><span class="pun">,</span><span class="pln"> age</span><span class="pun">,</span><span class="pln"> height</span><span class="pun">))</span></pre>
+<p>这时，你就可以把 wrapper 函数指定关键字函数：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> wrapper</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">):</span><span class="pln">
+        </span><span class="com"># args是一个数组，kwargs一个字典</span><span class="pln">
+        logging</span><span class="pun">.</span><span class="pln">warn</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> wrapper</span></pre>
+<p><strong>带参数的装饰器</strong></p>
+<p>装饰器还有更大的灵活性，例如带参数的装饰器，在上面的装饰器调用中，该装饰器接收唯一的参数就是执行业务的函数 foo 。装饰器的语法允许我们在调用时，提供其它参数，比如@decorator(a)。这样，就为装饰器的编写和使用提供了更大的灵活性。比如，我们可以在装饰器中指定日志的等级，因为不同业务函数可能需要的日志级别是不一样的。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">def</span><span class="pln"> use_logging</span><span class="pun">(</span><span class="pln">level</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">def</span><span class="pln"> decorator</span><span class="pun">(</span><span class="pln">func</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">def</span><span class="pln"> wrapper</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">):</span><span class="pln">
+            </span><span class="kwd">if</span><span class="pln"> level </span><span class="pun">==</span><span class="pln"> </span><span class="str">"warn"</span><span class="pun">:</span><span class="pln">
+                logging</span><span class="pun">.</span><span class="pln">warn</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">elif</span><span class="pln"> level </span><span class="pun">==</span><span class="pln"> </span><span class="str">"info"</span><span class="pun">:</span><span class="pln">
+                logging</span><span class="pun">.</span><span class="pln">info</span><span class="pun">(</span><span class="str">"%s is running"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__</span><span class="pun">)</span><span class="pln">
+            </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> wrapper
+
+    </span><span class="kwd">return</span><span class="pln"> decorator
+
+</span><span class="lit">@use_logging</span><span class="pun">(</span><span class="pln">level</span><span class="pun">=</span><span class="str">"warn"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> foo</span><span class="pun">(</span><span class="pln">name</span><span class="pun">=</span><span class="str">'foo'</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pun">(</span><span class="str">"i am %s"</span><span class="pln"> </span><span class="pun">%</span><span class="pln"> name</span><span class="pun">)</span><span class="pln">
+
+foo</span><span class="pun">()</span></pre>
+<p>上面的 use_logging 是允许带参数的装饰器。它实际上是对原有装饰器的一个函数封装，并返回一个装饰器。我们可以将它理解为一个含有参数的闭包。当我 们使用@use_logging(level="warn")调用的时候，Python 能够发现这一层的封装，并把参数传递到装饰器的环境中。</p>
+
+<p><span class="marked">@use_logging(level="warn")</span> 等价于 <span class="marked">@decorator</span></p>
+
+<p><strong>类装饰器</strong></p>
+<p>没错，装饰器不仅可以是函数，还可以是类，相比函数装饰器，类装饰器具有灵活度大、高内聚、封装性等优点。使用类装饰器主要依靠类的__call__方法，当使用 @ 形式将装饰器附加到函数上时，就会调用此方法。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">class</span><span class="pln"> </span><span class="typ">Foo</span><span class="pun">(</span><span class="kwd">object</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">def</span><span class="pln"> __init__</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">,</span><span class="pln"> func</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">_func </span><span class="pun">=</span><span class="pln"> func
+
+    </span><span class="kwd">def</span><span class="pln"> __call__</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">print</span><span class="pln"> </span><span class="pun">(</span><span class="str">'class decorator runing'</span><span class="pun">)</span><span class="pln">
+        </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">_func</span><span class="pun">()</span><span class="pln">
+        </span><span class="kwd">print</span><span class="pln"> </span><span class="pun">(</span><span class="str">'class decorator ending'</span><span class="pun">)</span><span class="pln">
+
+</span><span class="lit">@Foo</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> bar</span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">print</span><span class="pln"> </span><span class="pun">(</span><span class="str">'bar'</span><span class="pun">)</span><span class="pln">
+
+bar</span><span class="pun">()</span><span class="pln">
+functools</span><span class="pun">.</span><span class="pln">wraps</span></pre>
+<p>使用装饰器极大地复用了代码，但是他有一个缺点就是原函数的元信息不见了，比如函数的docstring、__name__、参数列表，先看例子：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="com"># 装饰器</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> logged</span><span class="pun">(</span><span class="pln">func</span><span class="pun">):</span><span class="pln">
+    </span><span class="kwd">def</span><span class="pln"> with_logging</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">print</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__      </span><span class="com"># 输出 'with_logging'</span><span class="pln">
+        </span><span class="kwd">print</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__doc__       </span><span class="com"># 输出 None</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> with_logging
+
+</span><span class="com"># 函数</span><span class="pln">
+</span><span class="lit">@logged</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> f</span><span class="pun">(</span><span class="pln">x</span><span class="pun">):</span><span class="pln">
+   </span><span class="str">"""does some math"""</span><span class="pln">
+   </span><span class="kwd">return</span><span class="pln"> x </span><span class="pun">+</span><span class="pln"> x </span><span class="pun">*</span><span class="pln"> x
+
+logged</span><span class="pun">(</span><span class="pln">f</span><span class="pun">)</span></pre>
+<p>不难发现，函数 f 被with_logging取代了，当然它的docstring，__name__就是变成了with_logging函数的信息了。好在我们有functools.wraps，wraps本身也是一个装饰器，它能把原函数的元信息拷贝到装饰器里面的 func 函数中，这使得装饰器里面的 func 函数也有和原函数 foo 一样的元信息了。</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="kwd">from</span><span class="pln"> functools </span><span class="kwd">import</span><span class="pln"> wraps
+</span><span class="kwd">def</span><span class="pln"> logged</span><span class="pun">(</span><span class="pln">func</span><span class="pun">):</span><span class="pln">
+    </span><span class="lit">@wraps</span><span class="pun">(</span><span class="pln">func</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">def</span><span class="pln"> with_logging</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">):</span><span class="pln">
+        </span><span class="kwd">print</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__name__      </span><span class="com"># 输出 'f'</span><span class="pln">
+        </span><span class="kwd">print</span><span class="pln"> func</span><span class="pun">.</span><span class="pln">__doc__       </span><span class="com"># 输出 'does some math'</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> func</span><span class="pun">(*</span><span class="pln">args</span><span class="pun">,</span><span class="pln"> </span><span class="pun">**</span><span class="pln">kwargs</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> with_logging
+
+</span><span class="lit">@logged</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> f</span><span class="pun">(</span><span class="pln">x</span><span class="pun">):</span><span class="pln">
+   </span><span class="str">"""does some math"""</span><span class="pln">
+   </span><span class="kwd">return</span><span class="pln"> x </span><span class="pun">+</span><span class="pln"> x </span><span class="pun">*</span><span class="pln"> x</span></pre>
+<p><strong>装饰器顺序</strong></p>
+<p>一个函数还可以同时定义多个装饰器，比如：</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="lit">@a</span><span class="pln">
+</span><span class="lit">@b</span><span class="pln">
+</span><span class="lit">@c</span><span class="pln">
+</span><span class="kwd">def</span><span class="pln"> f </span><span class="pun">():</span><span class="pln">
+    </span><span class="kwd">pass</span></pre>
+<p>它的执行顺序是从里到外，最先调用最里层的装饰器，最后调用最外层的装饰器，它等效于</p>
+
+<pre class="prettyprint prettyprinted" style=""><span class="pln">f </span><span class="pun">=</span><span class="pln"> a</span><span class="pun">(</span><span class="pln">b</span><span class="pun">(</span><span class="pln">c</span><span class="pun">(</span><span class="pln">f</span><span class="pun">)))</span></pre><div class="comt-meta wrapper"><span class="comt-author"><a target="_blank" href="javascript:;">fqas</a><div class="tooltip tooltip1"><p><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;fqas</p><p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;234***657@qq.com</p><p><i class="fa fa-external-link" aria-hidden="true"></i> <a rel="nofollow" target="_blank" href="https://foofish.net/python-decorator.html">&nbsp;&nbsp;参考地址</a></p></div></span>11个月前 (07-29)</div></div></li><!-- #comment-## -->
+	</ol>
+	<div class="pagenav">
+			</div>
+</div>
+
+<div id="respond" class="no_webshot"> 
+		<div class="comment-signarea" style="display:none; padding: 20px 20px;"> 
+	<h3 class="text-muted" id="share_code" style="color: #799961;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 点我分享笔记</h3>
+	<!--
+	<p style="font-size:14px;">笔记需要是本篇文章的内容扩展！</p><br>
+	<p style="font-size:12px;"><a href="//www.runoob.com/tougao" target="_blank">文章投稿，可点击这里</a></p>
+	<p style="font-size:14px;"><a href="/w3cnote/runoob-user-test-intro.html#invite" target="_blank">注册邀请码获取方式</a></p>
+		<h3 class="text-muted"><i class="fa fa-info-circle" aria-hidden="true"></i> 分享笔记前必须<a href="javascript:;" class="runoob-pop">登录</a>！</h3>
+		<p><a href="/w3cnote/runoob-user-test-intro.html#invite" target="_blank">注册邀请码获取方式</a></p>-->
+	</div>
+		
+	<form action="https://www.runoob.com/wp-content/themes/runoob/option/addnote.php" method="post" id="commentform" style="display:none;"><div id="comment-status" style="display:none;"></div>
+		<div class="comt">
+			<div class="comt-title">
+				<i style="font-size:36px;" class="fa fa-user-circle" aria-hidden="true"></i>				<p><a id="cancel-comment-reply-link" href="javascript:;">取消</a></p>
+			</div>
+			<div class="comt-box">
+			<div class="simditor simditor-mac">
+  <div class="simditor-wrapper"><div class="simditor-toolbar" style="top: 0px; width: 0px; left: 0px;"><ul><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-bold" href="javascript:;" title="加粗文字 ( Cmd + b )"><span class="simditor-icon simditor-icon-bold"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-code" href="javascript:;" title="插入代码"><span class="simditor-icon simditor-icon-code"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-ul" href="javascript:;" title="无序列表 ( Cmd + . )"><span class="simditor-icon simditor-icon-list-ul"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-ol" href="javascript:;" title="有序列表 ( Cmd + / )"><span class="simditor-icon simditor-icon-list-ol"></span></a></li><li><a tabindex="-1" unselectable="on" class="toolbar-item toolbar-item-image" href="javascript:;" title="插入图片"><span class="simditor-icon simditor-icon-picture-o"></span></a></li></ul></div>
+    <div class="simditor-placeholder" style="display: block; top: 1px;">写笔记...</div>
+    <div class="simditor-body" contenteditable="true"><p><br></p></div>
+  <div id="mded"></div></div>
+<div class="simditor-popover code-popover"><div class="code-settings">
+  <div class="settings-field">
+    <select class="select-lang">
+      <option value="-1">选择程序语言</option>
+    <option value="bash">Bash</option><option value="c++">C++</option><option value="cs">C#</option><option value="css">CSS</option><option value="erlang">Erlang</option><option value="less">Less</option><option value="sass">Sass</option><option value="diff">Diff</option><option value="coffeescript">CoffeeScript</option><option value="html">HTML,XML</option><option value="json">JSON</option><option value="java">Java</option><option value="js">JavaScript</option><option value="markdown">Markdown</option><option value="oc">Objective C</option><option value="php">PHP</option><option value="parl">Perl</option><option value="python">Python</option><option value="ruby">Ruby</option><option value="sql">SQL</option></select>
+  </div>
+</div></div><div class="simditor-popover image-popover"><div class="link-settings">
+  <div class="settings-field">
+    <label>图片地址</label>
+    <input class="image-src" type="text" tabindex="1">
+    
+  </div>
+  <div class="settings-field">
+    <label>图片描述</label>
+    <input class="image-alt" id="image-alt" type="text" tabindex="1">
+  </div>
+  <div class="settings-field">
+    <label>图片尺寸</label>
+    <input class="image-size" id="image-width" type="text" tabindex="2">
+    <span class="times">×</span>
+    <input class="image-size" id="image-height" type="text" tabindex="3">
+    <a class="btn-restore" href="javascript:;" title="还原图片尺寸" tabindex="-1">
+      <span class="simditor-icon simditor-icon-undo"></span>
+    </a>
+  </div>
+</div></div></div>
+			
+				<div class="comt-ctrl">
+					<div class="comt-tips"><input type="hidden" name="comment_post_ID" value="20470" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</div>
+					<button type="submit" name="submit" id="submit" tabindex="5"><i class="fa fa-pencil" aria-hidden="true"></i> 分享笔记</button>
+				</div>
+			</div>
+		
+				
+					<div class="comt-comterinfo"> 
+						<ul id="comment-author-info">
+							<li class="form-inline"><label class="hide" for="author">昵称</label><input class="ipt" type="text" name="author" id="author" value="" tabindex="2" placeholder="昵称"><span class="text-muted">昵称 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="email">邮箱</label><input class="ipt" type="text" name="email" id="email" value="" tabindex="3" placeholder="邮箱"><span class="text-muted">邮箱 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="url">引用地址</label><input class="ipt" type="text" name="url" id="url" value="" tabindex="4" placeholder="引用地址"><span class="text-muted">引用地址</span></li>
+						</ul>
+					</div>
+				
+			
+		</div>
+
+	</form>
+	</div>
+<script type="text/javascript">
+$(function() {
+	//初始化编辑器
+	
+	var editor = new Simditor({
+	  textarea: $('#mded'),
+	  placeholder: '写笔记...',
+	  upload:false,
+	 // upload: {url:'/api/comment_upload_file.php',params: null,fileKey: 'upload_file',connectionCount: 1,leaveConfirm: '文件正在上传，您确定离开?'},
+	  defaultImage: 'http://www.runoob.com/images/logo.png',
+	  codeLanguages: '',
+	  toolbar: [  'bold','code','ul','ol','image' ]
+	});
+	editor.on('selectionchanged', function() {
+		$(".code-popover").hide();
+	});
+
+	// 提交数据
+	$("#share_code").click(function() {
+		$(".comment-signarea").hide();
+		$("#commentform").show();
+		
+	});
+	$("#user_add_note").click(function() {
+		$(".comment-signarea").hide();
+		$("#commentform").show();
+		$('html, body').animate({
+       	    scrollTop: $("#respond").offset().top
+    	}, 200);
+	});
+
+	// 提交笔记
+	var commentform=$('#commentform');
+	commentform.prepend('<div id="comment-status" style="display:none;" ></div>');
+	var statusdiv=$('#comment-status');
+	
+	commentform.submit(function(e){
+		e.preventDefault();
+		var noteContent = editor.getValue();
+		// console.log(noteContent);
+		noteContent = noteContent.replace(/<pre><code>/g,"<pre>");
+		noteContent = noteContent.replace(/<\/code><\/pre>/g,"</pre>");
+		
+		// 系列化表单数据
+		var comment_parent = 0;
+		var is_user_logged_in = $("#is_user_logged_in").val();
+		var comment_post_ID =  20470;
+		var _wp_unfiltered_html_comment = $("#_wp_unfiltered_html_comment").val();
+		var comment = noteContent;
+		var author = $("#author").val();
+		var url = $("#url").val();
+		var email = $("#email").val();
+		if(isBlank(author) && is_user_logged_in==0) {
+			statusdiv.html('<p  class="ajax-error">请输入昵称！</p>').show();
+		} else if(isBlank(email)  && is_user_logged_in==0) {
+			statusdiv.html('<p  class="ajax-error">请输入邮箱！</p>').show();
+		} else {
+			// var formdata=commentform.serialize() + "&comment=" + noteContent ;
+			// 添加状态信息
+			statusdiv.html('<p>Processing...</p>').show();
+			// 获取表单提交地址
+			var formurl=commentform.attr('action');
+			
+			// 异步提交
+			$.ajax({
+					type: 'post',
+					url: formurl,
+					dataType:'json',
+					data: {"comment_parent":comment_parent,"comment_post_ID":comment_post_ID, "_wp_unfiltered_html_comment":_wp_unfiltered_html_comment,"comment":comment,"url":url, "email":email,"author":author},
+					error: function(XMLHttpRequest, textStatus, errorThrown){
+					statusdiv.html('<p class="ajax-error" >数据不完整或表单提交太快了！</p>').show();
+				},
+				success: function(data, textStatus){
+					if(data.errorno=="0") {
+						$("#submit").prop('disabled', true);
+						statusdiv.html('<p class="ajax-success" >笔记已提交审核，感谢分享笔记！</p>').show();
+						alert('笔记已提交审核，感谢分享笔记！');
+					}else{
+						statusdiv.html('<p class="ajax-error" >'+data.msg+'</p>').show();
+					}
+					commentform.find('textarea[name=comment]').val('');
+				}
+			});
+			setTimeout(function(){
+		        $("#submit").prop('disabled', false);
+		    }, 10*1000);
+		}
+		return false;
+
+	});
+	
+});
+function isBlank(str) {
+    return (!str || /^\s*$/.test(str));
+}
+</script>
+
+<link rel="stylesheet" href="./1_files/qa.css">
+<link rel="stylesheet" type="text/css" href="./1_files/simditor.min.css">
+<script type="text/javascript" src="./1_files/module.js"></script>
+<script type="text/javascript" src="./1_files/hotkeys.js"></script>
+<script type="text/javascript" src="./1_files/uploader.js"></script>
+<script type="text/javascript" src="./1_files/simditor.min.js"></script>			<div class="article-heading-ad" id="w3cnote-ad728">
+			<script async="" src="./1_files/f.txt"></script>
+			<!-- 移动版 自动调整 -->
+			<ins class="adsbygoogle" style="display:inline-block;min-width:300px;max-width:970px;width:100%;height:90px" data-ad-client="ca-pub-5751451760833794" data-ad-slot="1691338467" data-ad-format="horizontal" imhoof4="" hidden=""></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+			</div>
+			<style>
+@media screen and (max-width: 768px) {
+	#w3cnote-ad728 {
+		display: none;
+	}
+}
+p.note-author {
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+    color: #78a15a;
+    padding-bottom: 2px;
+    margin-bottom: 4px;
+}
+</style>
+<script>
+var aid = 20470;
+</script>
+	</div>
+		
+	</div>
+	<div class="listcol last right-column">
+
+
+
+
+<!--
+	<div class="tab tab-light-blue"> 订阅</div>
+	<div class="sidebar-box">
+		<div class="socialicons">
+			<a href="//www.runoob.com/feed" class="rss">RSS 订阅</a>
+		
+			<form action="//list.qq.com/cgi-bin/qf_compose_send" method="post">
+			<input type="hidden" value="qf_booked_feedback" name="t">
+			<input type="hidden" value="4b67b6b6c1f5e792559940cab4aebb8f1126fba880bff1a8" name="id">
+			<input class="placeholder" id="feed_email" name="to" value="输入邮箱 订阅笔记" autocomplete="off">
+			<input type="submit" value="订阅" class="btn btn-primary">
+			</form>
+		
+		</div>
+ 
+	</div>
+-->	
+
+
+
+<!--
+	<div class="sidebar-box cate-list">
+	<div class="sidebar-box advertise-here list-link">
+			<a href="javascript:void(0);" style="font-size: 16px; color:#64854c;font-weight:bold;">笔记列表</a>
+		</div>
+
+ 
+
+</div>
+-->
+
+	 <div class="sidebar-box cate-list">
+		 		
+
+	 	<div class="sidebar-box advertise-here list-link" imhoof4="" hidden="">
+			<a href="javascript:void(0);" style="font-size: 16px; color:#64854c;font-weight:bold;">教程列表</a>
+		</div>
+		
+		<div class="cate-items"> 
+				<a href="http://www.runoob.com/ado" title="ADO，即 ActiveX 数据对象（ActiveX Data Objects），是微软公司提出的应用程序接口，用于访问关系或非关系数据库中的数据。">ADO 教程</a>
+	<a href="http://www.runoob.com/ajax" title="Ajax，即 Asynchronous JavaScript and XML（异步的 JavaScript 和 XML），是一项在不重新加载整个页面的情况下与服务器交换数据并更新部分网页的技术。">Ajax 教程</a>
+	<a href="http://www.runoob.com/android" title="Android是一种基于Linux的自由及开放源代码的操作系统，主要使用于移动设备，如智能手机和平板电脑，由Google公司和开放手机联盟领导及开发。">Android 教程</a>
+	<a href="http://www.runoob.com/angularjs2" title="AngularJS 2 是一款开源JavaScript库，由Google维护，用来协助单一页面应用程序运行。">Angular2 教程</a>
+	<a href="http://www.runoob.com/angularjs" title="AngularJS 是 Google 开发的纯客户端 JavaScript 技术的 WEB 框架，用于扩展、增强 HTML 功能，它专为构建强大的 WEB 应用而设计。">AngularJS 教程</a>
+	<a href="http://www.runoob.com/appml" title="AppML 是一个为 Web 应用程序设计的 HTML 扩展框架。AppML 结合了最新的技术和现代 Web 开发想法，使用了低消耗高速简单的架构，易于学习。">AppML 教程</a>
+	<a href="http://www.runoob.com/asp" title="ASP，即动态服务器页面（Active Server Pages），是微软公司提出的一项生成动态交互性网页的技术。ASP 是在 IIS 中运行的程序，ASP 文件中的脚本可在服务器上执行。">ASP 教程</a>
+	<a href="http://www.runoob.com/aspnet" title="ASP.NET 是微软公司提出的一个使用 HTML、CSS、JavaScript 和服务器脚本创建网页和网站的开发框架。ASP.NET 支持三种不同的开发模式：单页面模式、MVC 模式、事件驱动模式。">ASP.NET 教程</a>
+	<a href="http://www.runoob.com/bootstrap" title="Bootstrap 是 Twitter 推出的一款开源的基于 HTML、CSS、JAVASCRIPT 的前端开发框架，用于快速开发 Web 应用程序和网站。">Bootstrap 教程</a>
+	<a href="http://www.runoob.com/bootstrap4" title="Bootstrap4 目前是 Bootstrap 的最新版本，是一套用于 HTML、CSS 和 JS 开发的开源工具集。">Bootstrap4 教程</a>
+	<a href="http://www.runoob.com/cprogramming" title="C 语言是一种通用的、面向过程式的计算机程序设计语言，广泛用于系统与应用软件的开发。具有高效、灵活、功能丰富、表达力强和较高的可移植性等特点，在程序员中备受青睐。">C 教程</a>
+	<a href="http://www.runoob.com/csharp" title="C# 是微软公司发布的一种面向对象的、专为公共语言基础结构（CLI）而设计的、运行于 .NET Framework 之上的高级程序设计语言。">C# 教程</a>
+	<a href="http://www.runoob.com/cplusplus" title="C++ 进一步扩充和完善了 C 语言，是一种面向对象的程序设计语言，可运行于多种平台上。C++ 支持多种编程范式——面向对象编程、泛型编程和过程化编程。">C++ 教程</a>
+	<a href="http://www.runoob.com/cssref" title="CSS 参考手册提供了完整的 CSS 属性列表，每个属性都配有语法说明及实例演示，另外还讲解了 CSS 选择器、颜色值及浏览器支持等相关内容。">CSS 参考手册</a>
+	<a href="http://www.runoob.com/css" title="CSS，即级联样式表（Cascading Style Sheets），是一种用于表现 HTML（标准通用标记语言的一个应用）或 XML（标准通用标记语言的一个子集）等文件样式和布局的计算机语言。">CSS 教程</a>
+	<a href="http://www.runoob.com/css3" title="CSS3 是最新的 CSS 标准。CSS，即级联样式表（Cascading Style Sheets），用于表现 HTML 或 XML 等文件的样式和布局。">CSS3 教程</a>
+	<a href="http://www.runoob.com/django" title="Django是一个开放源代码的Web应用框架，由Python写成。采用了MVC的软件设计模式，即模型M，视图V和控制器C。">Django 教程</a>
+	<a href="http://www.runoob.com/docker" title="Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中。">Docker 教程</a>
+	<a href="http://www.runoob.com/dtd" title="DTD，即文档类型定义，用于定义 XML 文档的合法构建模块。DTD 使用一系列合法的元素来定义文档的结构，可被成行地声明于 XML 文档中，也可作为一个外部引用。">DTD 教程</a>
+	<a href="http://www.runoob.com/eclipse" title="Eclipse 是一个开放源代码的、基于 Java 的可扩展开发平台。">Eclipse 教程</a>
+	<a href="http://www.runoob.com/firebug" title="Firebug 是 网页浏览器 Mozilla Firefox 下的一款开发类插件，集 HTML 查看和编辑、Javascript 控制台、网络状况监视器于一体，是开发JavaScript、CSS、HTML 和 Ajax 的得力助手。">Firebug 教程</a>
+	<a href="http://www.runoob.com/font-awesome" title="Font Awesome 是一套绝佳的图标字体库和CSS框架。">Font Awesome 图标</a>
+	<a href="http://www.runoob.com/foundation" title="Foundation 是一个易用、强大而且灵活的框架,用于构建基于任何设备上的 Web 应用。">Foundation 教程</a>
+	<a href="http://www.runoob.com/git" title="Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。">Git 教程</a>
+	<a href="http://www.runoob.com/go" title="Go 是一个开源的编程语言，它能让构造简单、可靠且高效的软件变得容易。">Go 语言教程</a>
+	<a href="http://www.runoob.com/googleapi" title="Google 地图 API 是 Google 为开发者提供的创建交互式地图的应用程序编程接口。Google  地图 API 是一项免费的服务，任何非盈利性网站均可使用。">Google 地图 API 教程</a>
+	<a href="http://www.runoob.com/highcharts" title="Highcharts 是一个用纯JavaScript编写的一个图表库">Highcharts 教程</a>
+	<a href="http://www.runoob.com/htmldom" title="HTML DOM 定义了所有 HTML 元素的对象和属性，以及访问它们的方法。换言之，HTML DOM 是关于如何获取、修改、添加或删除 HTML 元素的标准。">HTML DOM 教程</a>
+	<a href="http://www.runoob.com/tags" title="HTML 参考手册提供了完整的 HTML 标签、属性、事件列表，并配有具体的实例演示，另外还讲解了拾色器、字符集等相关内容。">HTML 参考手册</a>
+	<a href="http://www.runoob.com/charsets" title="要正确显示HTML页面，浏览器必须知道页面使用的字符集（字符编码）是什么。">HTML 字符集</a>
+	<a href="http://www.runoob.com/html" title="HTML，即超文本标记语言（Hyper Text Markup Language），是一种用于描述网页的标记语言，通过标记符号来标记要显示的网页中的各个部分。">HTML 教程</a>
+	<a href="http://www.runoob.com/http" title="超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。">HTTP 教程</a>
+	<a href="http://www.runoob.com/ionic" title="ionic 是一个强大的 HTML5 应用程序开发框架(HTML5 Hybrid Mobile App Framework )。">ionic 教程</a>
+	<a href="http://www.runoob.com/ios" title="IOS 是苹果公司研发的一款手机操作系统。IOS 具有简单易用的界面、令人惊叹的功能，以及超强的稳定性，是 iPad、iPhone、iPod touch和 Apple TV 的操作系统。">iOS 教程</a>
+	<a href="http://www.runoob.com/java" title="Java 是一种跨平台的面向对象的高级程序设计语言，是由 Sun Microsystems 公司推出的 Java 程序设计语言和 Java 平台（即 JavaEE、JavaME、JavaSE）的总称。">Java 教程</a>
+	<a href="http://www.runoob.com/jsref" title="JavaScript 参考手册提供了完整的 JavaScript 对象、浏览器对象、HTML DOM 对象手册。手册包含了每个对象、属性、方法的实例。">JavaScript 参考手册</a>
+	<a href="http://www.runoob.com/js" title="JS，即 Javascript，是一种轻量级的编程语言，可插入 HTML 页面，由所有的现代浏览器执行。JS 可用于 HTML 和 web，更可广泛用于服务器、PC、笔记本电脑、平板电脑和智能手机等设备。">Javascript 教程</a>
+	<a href="http://www.runoob.com/jeasyui" title="jQuery EasyUI 是一个基于 jQuery 的框架，集成了各种用户界面插件。jQuery EasyUI 框架提供了创建网页所需的一切，帮助您轻松建立站点。">jQuery EasyUI 教程</a>
+	<a href="http://www.runoob.com/jquerymobile" title="jQuery Mobile 是用于创建移动 Web 应用的前端开发框架。jQuery Mobile 使用 HTML5 &amp; CSS3 最小的脚本来布局网页，可以应用于智能手机与平板电脑。">jQuery Mobile 教程</a>
+	<a href="http://www.runoob.com/jqueryui" title="jQuery UI 是建立在 jQuery JavaScript 库上的一组用户界面交互、特效、小部件及主题，可用于创建高度交互的 Web 应用程序。">jQuery UI 教程</a>
+	<a href="http://www.runoob.com/jquery" title="jQuery 是目前最流行的一个轻量级的兼容多浏览器的 JavaScript  框架。jQuery 提供了大量的插件，极大地简化了 JavaScript 编程。">jQuery 教程</a>
+	<a href="http://www.runoob.com/json" title="JSON，即 JavaScript Object Notation（JavaScript 对象表示法），是存储和交换文本信息的语法。JSON 类似 XML，但比 XML 更小、更快，更易解析。">JSON 教程</a>
+	<a href="http://www.runoob.com/jsp" title="JSP，即 Java Server Pages，是由 Sun Microsystems 公司倡导和许多公司参与共同创建的一种使软件开发者可以响应客户端请求，而动态生成 HTML、XML 或其他格式文档的 Web 网页的技术标准。">JSP 教程</a>
+	<a href="http://www.runoob.com/kotlin" title="Kotlin 是一个基于 JVM 的新的编程语言，由 JetBrains 开发。Kotlin可以编译成Java字节码，也可以编译成JavaScript，方便在没有JVM的设备上运行。">Kotlin 教程</a>
+	<a href="http://www.runoob.com/linux" title="Linux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和UNIX的多用户、多任务、支持多线程和多CPU的操作系统。它能运行主要的UNIX工具软件、应用程序和网络协议。">Linux 教程</a>
+	<a href="http://www.runoob.com/lua" title="Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放。">Lua 教程</a>
+	<a href="http://www.runoob.com/markdown" title="Markdown是一种轻量级标记语言，它允许人们“使用易读易写的纯文本格式编写文档。">Markdown 教程</a>
+	<a href="http://www.runoob.com/maven" title="Maven 是 Apache 下的一个纯 Java 开发的开源项目。基于项目对象模型（缩写：POM）概念，Maven利用一个中央信息片断能管理一个项目的构建、报告和文档等步骤。">Maven 教程</a>
+	<a href="http://www.runoob.com/memcached" title="Memcached是一个自由开源的，高性能，分布式内存对象缓存系统。它很普通，却可以用来减轻数据库负载，从而为动态web应用加速。">Memcached 教程</a>
+	<a href="http://www.runoob.com/mongodb" title="MongoDB 是由 C++ 语言编写的开源数据库系统，是一个基于分布式文件存储的数据库，旨在为 Web 应用提供可扩展的高性能数据存储解决方案。">MongoDB 教程</a>
+	<a href="http://www.runoob.com/mysql" title="MySQL 是一个开源的小型关系型数据库管理系统。在 Web 应用方面，MySQL是最好的 RDBMS（关系数据库管理系统）应用软件之一。">MySQL 教程</a>
+	<a href="http://www.runoob.com/nodejs" title="Node.js 是一个基于 Chrome JavaScript 运行时建立的一个平台，是一个基于 Google 的 V8 引擎的事件驱动 I/O 服务端 JavaScript 环境。">Node.js 教程</a>
+	<a href="http://www.runoob.com/numpy" title="NumPy(Numerical Python) 是 Python 语言的一个扩展程序库，支持大量的维度数组与矩阵运算。">NumPy 教程</a>
+	<a href="http://www.runoob.com/perl" title="Perl，一种功能丰富的计算机程序语言，运行在超过100种计算机平台上，适用广泛，从大型机到便携设备，从快速原型创建到大规模可扩展开发。">Perl 教程</a>
+	<a href="http://www.runoob.com/php" title="PHP，即 PHP: Hypertext Preprocessor，是一种创建动态交互性站点的强有力的服务器端脚本语言。PHP 是开源的，可免费下载使用。">PHP 教程</a>
+	<a href="http://www.runoob.com/postgresql" title="PostgreSQL 是一个免费的对象-关系数据库服务器(数据库管理系统)。">PostgreSQL 教程</a>
+	<a href="http://www.runoob.com/python3" title="Python的3.0版本，常被称为Python 3000，或简称Py3k。相对于Python的早期版本，这是一个较大的升级。为了不带入过多的累赘，Python 3.0在设计的时候没有考虑向下兼容。">Python 3 教程</a>
+	<a href="http://www.runoob.com/python" title="Python 是一种解释型、面向对象、动态数据类型的高级程序设计语言。Python 支持从简单的文字处理到 WWW 浏览器再到游戏等应用程序的开发。">Python 基础教程</a>
+	<a href="http://www.runoob.com/rdf" title="RDF，即资源描述框架（Resource Description Framework），是用于描述网络资源的 W3C 标准，比如网页的标题、作者、修改日期、内容以及版权信息。">RDF 教程</a>
+	<a href="http://www.runoob.com/react" title="React 是一个用于构建用户界面的 JAVASCRIPT 库。">React 教程</a>
+	<a href="http://www.runoob.com/redis" title="Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。">Redis 教程</a>
+	<a href="http://www.runoob.com/rss" title="RSS，即真正简易联合（Really Simple Syndication），是一种使用 XML 编写的描述和同步网站内容的格式，定义了非常简单的方法来共享和查看标题和内容。">RSS 教程</a>
+	<a href="http://www.runoob.com/ruby" title="Ruby 是一种开源的面向对象程序设计的服务器端脚本语言，在 20 世纪 90 年代中期由日本的松本行弘设计并开发。Ruby 可用于编写通用网关接口（CGI）脚本，可用于开发 Internet 和 Intranet 应用。">Ruby 教程</a>
+	<a href="http://www.runoob.com/scala" title="Scala 是一门多范式（multi-paradigm）的编程语言，设计初衷是要集成面向对象编程和函数式编程的各种特性。">Scala 教程</a>
+	<a href="http://www.runoob.com/servlet" title="Servlet（Server Applet），全称 Java Servlet，是用 Java 编写的服务器端程序。其主要功能在于交互式地浏览和修改数据，生成动态 Web 内容。Servlet 运行于支持 Java 的应用服务器中，它最常见的用途是扩展 Web 服务器。">Servlet 教程</a>
+	<a href="http://www.runoob.com/soap" title="SOAP，即简易对象访问协议，是基于 XML 的简易协议，可使应用程序在 HTTP 之上进行信息交换。简单地说，SOAP 是用于访问网络服务的协议。">SOAP 教程</a>
+	<a href="http://www.runoob.com/sql" title="SQL，即结构化查询语言（Structured Query Language），是一种 ANSI 标准的计算机语言，用于访问和处理数据库。">SQL 教程</a>
+	<a href="http://www.runoob.com/sqlite" title="SQLite 是一款轻型的关系型数据库管理系统，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。SQLite 是在世界上最广泛部署的 SQL 数据库引擎。">SQLite 教程</a>
+	<a href="http://www.runoob.com/svg" title="SVG，即可缩放矢量图形（Scalable Vector Graphics），是一种使用 XML 来描述二维图形和绘图程序的语言。SVG 是 W3C 推荐标准。">SVG 教程</a>
+	<a href="http://www.runoob.com/svn" title="SVN是Subversion的简称，是一个开放源代码的版本控制系统，相较于RCS、CVS，它采用了分支管理系统，它的设计目标就是取代CVS。">SVN 教程</a>
+	<a href="http://www.runoob.com/swift" title="Swift 是一种支持多编程范式和编译式的编程语言,苹果于2014年WWDC（苹果开发者大会）发布，用于开发 iOS，OS X 和 watchOS应用程序。">Swift 教程</a>
+	<a href="http://www.runoob.com/tcpip" title="TCP/IP 是因特网的通信协议，是对计算机必须遵守的规则的描述，只有遵守这些规则，计算机之间才能进行通信。浏览器与服务器是使用 TCP/IP 协议来链接因特网的。">TCP/IP 教程</a>
+	<a href="http://www.runoob.com/typescript" title="TypeScript 是 JavaScript 的一个超集，支持 ECMAScript 6 标准。">TypeScript 教程</a>
+	<a href="http://www.runoob.com/vbscript" title="VBScript，即 Visual Basic Script，是微软公司开发的一种解析型的服务端（也支持客户端）脚本语言，可以看作是 VB 语言的简化版。">VBScript 教程</a>
+	<a href="http://www.runoob.com/vue2" title="Vue.js（读音 /vjuː/, 类似于 view） 是一套构建用户界面的渐进式框架。">Vue.js 教程</a>
+	<a href="http://www.runoob.com/w3c" title="W3C，即万维网联盟，创建于 1994 年，是 Web 技术领域最具权威和影响力的国际中立性技术标准机构。W3C 让每个人都能在互联网上分享资源。">W3C 教程</a>
+	<a href="http://www.runoob.com/webservices" title="Web Service 是使用开放协议进行通信的可重复使用的应用程序组件。通过使用 Web services，您可以在不同的应用程序与平台之间来交换数据。">Web Service 教程</a>
+	<a href="http://www.runoob.com/wsdl" title="WSDL，即网络服务描述语言（Web Services Description Language），是一门基于 XML 的语言，用于描述 Web Services 以及如何对它们进行访问。">WSDL 教程</a>
+	<a href="http://www.runoob.com/xlink" title="XLink 定义在 XML 文档中创建超级链接的标准方法。XPointer 允许这些超级链接指向 XML 文档中的更多具体部分（片断）。XLink 和 XPointer 是 W3C 推荐标准。">XLink 教程</a>
+	<a href="http://www.runoob.com/dom" title="XML DOM 定义了所有 XML 元素的对象和属性，以及访问它们的方法。换言之，XML DOM 是用于获取、更改、添加或删除 XML 元素的标准。">XML DOM 教程</a>
+	<a href="http://www.runoob.com/schema" title="XML Schema 是基于 XML（可扩展标记语言），描述了 XML 文档的合法构建模块，可替代 DTD（文档类型定义）。XML Schema 是 W3C 的推荐标准。">XML Schema 教程</a>
+	<a href="http://www.runoob.com/xml" title="XML，即可扩展标记语言（eXtensible Markup Language），用来传输和存储数据。XML 是一个 W3C 推荐标准。">XML 教程</a>
+	<a href="http://www.runoob.com/xpath" title="XPath，即 XML 路径语言，是 XSLT 中的主要元素，是一种在 XML 文档中查找信息的语言。XPath 是一个 W3C 推荐标准。">XPath 教程</a>
+	<a href="http://www.runoob.com/xquery" title="XQuery 是建立在 XPath 表达式之上，用于 XML 数据查询的语言。XQuery 对 XML 的作用类似 SQL 对数据库的作用。XQuery 是一个 W3C 推荐标准。">XQuery 教程</a>
+	<a href="http://www.runoob.com/xslfo" title="XSL-FO，即可扩展样式表语言格式化对象（Extensible Stylesheet Language Formatting Objects），是用于格式化 XML 数据的语言。XSL-FO 是一个 W3C 推荐标准。">XSLFO 教程</a>
+	<a href="http://www.runoob.com/xsl" title="XSLT，即 XSL 转换，是一种用于将 XML 文档转换为 XHTML 文档或其他 XML 文档的语言。XSL 指扩展样式表语言，是一种 XML 文档的样式表语言。XSLT 是一个 W3C 推荐标准。">XSLT 教程</a>
+	<a href="http://www.runoob.com/regexp" title="正则表达式，又称正规表示法、常规表示法，使用单个字符串来描述、匹配一系列符合某个句法规则的字符串，通常被用来检索、替换那些符合某个模式的文本。">正则表达式</a>
+	<a href="http://www.runoob.com/quiz" title="测验">测验</a>
+	<a href="http://www.runoob.com/browsers" title="浏览器是用于显示网页服务器或档案系统内的文件，并让用户与这些文件互动的一种软件。目前主流浏览器包括 Internet Explorer、Firefox、Chrome、Safari、Opera 等。">浏览器</a>
+	<a href="http://www.runoob.com/quality" title="通过学习重要的 Web 标准，根据 Web 标准编写页面，有助于改善网站品质，创建高质量的 Web 网站，让网站更加简易且可读性更强。">网站品质</a>
+	<a href="http://www.runoob.com/web" title="网站建设指南介绍了一个网站开发人员建设一个专业的网站必须掌握的知识，同时还讲解了网站验证、Web 语义化、搜索引擎优化等相关内容。">网站建设指南</a>
+	<a href="http://www.runoob.com/hosting" title="Web 服务器可存放网站，只有将存放在服务器上的网站进行发布，用户才能在客户端上浏览网站。网站主机服务通常包括了域名注册、电子邮件等。">网站服务器教程</a>
+	<a href="http://www.runoob.com/design-pattern" title="设计模式（Design pattern）是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 ">设计模式</a>
+			
+		</div> 
+		 	 </div>
+</div>
+	</div>
+</div>
+
+
+<!-- 底部 -->
+
+
+<div id="footer" class="mar-t50">
+   <div class="runoob-block">
+    <div class="runoob cf">
+     <dl>
+      <dt>
+       在线实例
+      </dt>
+      <dd>
+       ·<a target="_blank" href="https://www.runoob.com/html/html-examples.html">HTML 实例</a>
+      </dd>
+      <dd>
+       ·<a target="_blank" href="https://www.runoob.com/css/css-examples.html">CSS 实例</a>
+      </dd>
+      <dd>
+       ·<a target="_blank" href="https://www.runoob.com/js/js-examples.html">JavaScript 实例</a>
+      </dd>
+      <dd>
+       ·<a target="_blank" href="https://www.runoob.com/ajx/ajax-examples.html">Ajax 实例</a>
+      </dd>
+       <dd>
+       ·<a target="_blank" href="https://www.runoob.com/jquery/jquery-examples.html">jQuery 实例</a>
+      </dd>
+      <dd>
+       ·<a target="_blank" href="https://www.runoob.com/xml/xml-examples.html">XML 实例</a>
+      </dd>
+      <dd>
+       ·<a target="_blank" href="https://www.runoob.com/java/java-examples.html">Java 实例</a>
+      </dd>
+     
+     </dl>
+     <dl>
+      <dt>
+      字符集&amp;工具
+      </dt>
+      <dd>
+       · <a target="_blank" href="https://www.runoob.com/charsets/html-charsets.html">HTML 字符集设置</a>
+      </dd>
+      <dd>
+       · <a target="_blank" href="https://www.runoob.com/tags/html-ascii.html">HTML ASCII 字符集</a>
+      </dd>
+     <dd>
+       · <a target="_blank" href="https://www.runoob.com/tags/ref-entities.html">HTML ISO-8859-1</a>
+      </dd> 
+      <dd>
+       · <a target="_blank" href="https://www.runoob.com/tags/html-symbols.html">HTML 实体符号</a>
+      </dd>
+      <dd>
+       · <a target="_blank" href="https://www.runoob.com/tags/html-colorpicker.html">HTML 拾色器</a>
+      </dd>
+      <dd>
+       · <a target="_blank" href="https://c.runoob.com/front-end/53">JSON 格式化工具</a>
+      </dd>
+     </dl>
+     <dl>
+      <dt>
+       最新更新
+      </dt>
+                   <dd>
+       ·
+      <a href="http://www.runoob.com/python3/python3-assert.html" title="Python3 assert（断言）">Python3 assert...</a>
+      </dd>
+              <dd>
+       ·
+      <a href="http://www.runoob.com/w3cnote/c-time-func-summary.html" title="C 语言中的 time 函数总结">C 语言中的 time...</a>
+      </dd>
+              <dd>
+       ·
+      <a href="http://www.runoob.com/php/php-imagecreate.html" title="PHP imagecreate – 新建一个基于调色板的图像">PHP imagecreate...</a>
+      </dd>
+              <dd>
+       ·
+      <a href="http://www.runoob.com/postgresql/postgresql-functions.html" title="PostgreSQL  常用函数">PostgreSQL  常...</a>
+      </dd>
+              <dd>
+       ·
+      <a href="http://www.runoob.com/postgresql/postgresql-datetime.html" title="PostgreSQL 时间/日期函数和操作符">PostgreSQL 时间...</a>
+      </dd>
+              <dd>
+       ·
+      <a href="http://www.runoob.com/postgresql/postgresql-privileges.html" title="PostgreSQL PRIVILEGES（权限）">PostgreSQL PRIV...</a>
+      </dd>
+              <dd>
+       ·
+      <a href="http://www.runoob.com/postgresql/postgresql-autoincrement.html" title="PostgreSQL AUTO INCREMENT（自动增长）">PostgreSQL AUTO...</a>
+      </dd>
+             </dl>
+     <dl>
+      <dt>
+       站点信息
+      </dt>
+      <dd>
+       ·
+       <a target="_blank" href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=ssbDyoOAgfLU3crf09venNHd3w" rel="external nofollow">意见反馈</a>
+      </dd>
+         <!--
+      <dd>
+       &middot;
+      <a target="_blank" href="//www.runoob.com/w3cnote/knowledge-start.html">支持我们
+     </a>
+     </dd>
+     -->
+      <dd>
+       ·
+      <a class="wxpopup" onclick="popFunction()">合作联系
+       <span class="popuptext" id="myPopup">微信(注明来意)：<strong>centos5</strong></span>
+      </a>
+      </dd>
+      <dd>
+       ·
+      <a target="_blank" href="https://www.runoob.com/disclaimer">免责声明</a>
+       </dd>
+       <!--
+       <dd style="display: block;">
+       &middot;
+      <a href="javascript:void(0)" onclick="dashangToggle()" style="font-weight:bold;color:#f00;" title="打赏，支持一下">打赏一下</a>
+       </dd>
+     -->
+      <dd>
+       ·
+       <a target="_blank" href="https://www.runoob.com/aboutus">关于我们</a>
+       </dd>
+      <dd>
+       ·
+      <a target="_blank" href="https://www.runoob.com/archives">文章归档</a>
+      </dd>
+    
+     </dl>
+    
+     <div class="search-share">
+      <div class="app-download">
+        <div>
+         <strong>关注微信</strong>
+        </div>
+      </div>
+      <div class="share">
+            <img width="128" height="128" src="./1_files/qrcode.png">
+       </div>
+     </div>
+     
+    </div>
+   </div>
+   <div class="w-1000 copyright">
+     Copyright © 2013-2019    <strong><a href="https://www.runoob.com/" target="_blank">菜鸟教程</a></strong>&nbsp;
+    <strong><a href="https://www.runoob.com/" target="_blank">runoob.com</a></strong> All Rights Reserved. 备案号：闽ICP备15012807号-1
+   </div>
+  </div>
+  <div class="fixed-btn">
+    <a class="go-top" href="javascript:void(0)" title="返回顶部"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" href="javascript:void(0)" title="关注我们"><i class="fa fa-qrcode"></i></a>
+    <a class="writer" style="" href="javascript:void(0)" title="标记/收藏"><i class="fa fa-star" aria-hidden="true"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade in">
+      <h4>微信关注</h4>
+      <div class="panel-body"><img alt="微信关注" width="128" height="128" src="./1_files/qrcode.png"></div> 
+    </div>
+  </div>
+
+  <div class="hide_box"></div>
+    <div class="shang_box">
+      <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="./1_files/close.jpg" alt="取消"></a>
+       
+      <div class="shang_tit">
+        <p>感谢您的支持，我会继续努力的!</p>
+      </div>
+      <div class="shang_payimg">
+        <img src="./1_files/weipayimg.png" alt="扫码支持" title="扫一扫">
+      </div>
+        <div class="pay_explain">扫码打赏，你说多少就多少</div>
+      <div class="shang_payselect">
+        <div class="pay_item  checked" data-id="weipay">
+          <span class="radiobox"></span>
+          <span class="pay_logo"><img src="./1_files/wechat.jpg" alt="微信"></span>
+        </div>
+        <div class="pay_item" data-id="alipay">
+          <span class="radiobox"></span>
+          <span class="pay_logo"><img src="./1_files/alipay.jpg" alt="支付宝"></span>
+        </div>
+        
+      </div>
+      <div class="shang_info">
+        <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+        <p><a href="https://c.runoob.com/codedemo/5348" target="_blank"><span style=" font-size: 14px;color: #000;font-weight: bold;">点我查看本站打赏源码！</span></a></p>
+      </div>
+    </div>
+  <div id="testClick"></div>
+ <div style="display:none;">
+ 
+ <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?3eec0b7da6548cf07db3bc477ea905ee";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script async="" src="./1_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-84264393-2');
+</script>
+</div>
+<script>
+window.jsui={
+    www: '//wwww.runoob.com',
+    uri: '//www.runoob.com/wp-content/themes/runoob'
+};
+</script>
+<style>
+ol,ul{list-style:none}.cd-switcher a{text-decoration:none;outline:0}.cd-switcher a:hover{text-decoration:underline}a:focus{outline:0;-moz-outline:0}.main_nav{width:300px;height:60px;margin:60px auto 10px auto}.main_nav li{float:left;width:60px;margin-right:10px;font-size:16px;padding:.6em 1em;border-radius:3em;background:#2f889a;text-align:center}.main_nav li a{color:#fff}.errtip{background-color:#fceaea;color:#db5353;padding:8px 15px;font-size:14px;border:1px solid #fc9797;border-radius:5px}.cd-user-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(52,54,66,0.9);z-index:3;overflow-y:auto;cursor:pointer;visibility:hidden;opacity:0;-webkit-transition:opacity .3s 0,visibility 0 .3s;-moz-transition:opacity .3s 0,visibility 0 .3s;transition:opacity .3s 0,visibility 0 .3s}.cd-user-modal.is-visible{visibility:visible;opacity:1;-webkit-transition:opacity .3s 0,visibility 0 0;-moz-transition:opacity .3s 0,visibility 0 0;transition:opacity .3s 0,visibility 0 0}.cd-user-modal.is-visible .cd-user-modal-container{-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);-o-transform:translateY(0);transform:translateY(0)}.cd-user-modal-container{position:relative;width:90%;max-width:500px;background:#FFF;margin:3em auto 4em;cursor:auto;border-radius:.25em;-webkit-transform:translateY(-30px);-moz-transform:translateY(-30px);-ms-transform:translateY(-30px);-o-transform:translateY(-30px);transform:translateY(-30px);-webkit-transition-property:-webkit-transform;-moz-transition-property:-moz-transform;transition-property:transform;-webkit-transition-duration:.3s;-moz-transition-duration:.3s;transition-duration:.3s}.cd-user-modal-container .cd-switcher:after{content:"";display:table;clear:both}.cd-user-modal-container .cd-switcher li{width:50%;float:left;text-align:center}.cd-user-modal-container .cd-switcher li:first-child a{border-radius:.25em 0 0 0}.cd-user-modal-container .cd-switcher li:last-child a{border-radius:0 .25em 0 0}.cd-user-modal-container .cd-switcher a{font-size:1.2em;font-weight:bold;display:block;width:100%;height:50px;line-height:50px;background:#e8f1e2;color:#96b880}.cd-user-modal-container .cd-switcher a.selected{background:#FFF;color:#505260}@media only screen and (min-width:600px){.cd-user-modal-container{margin:4em auto}.cd-user-modal-container .cd-switcher a{height:70px;line-height:70px}}.cd-form{padding:1.4em}.cd-form .fieldset{position:relative;margin:1.4em 0}.cd-form .fieldset:first-child{margin-top:0}.cd-form .fieldset:last-child{margin-bottom:0}.cd-form label{font-size:16px;font-size:.875rem}.cd-form label.image-replace{display:inline-block;position:absolute;left:15px;top:50%;bottom:auto;-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);-ms-transform:translateY(-50%);-o-transform:translateY(-50%);transform:translateY(-50%);height:20px;width:20px;overflow:hidden;text-indent:100%;white-space:nowrap;color:transparent;text-shadow:none;background-repeat:no-repeat;background-position:50% 0}.cd-form label.cd-username{background-image:url("/wp-content/themes/runoob/assets/img/cd-icon-username.svg")}.cd-form label.cd-email{background-image:url("/wp-content/themes/runoob/assets/img/cd-icon-email.svg")}.cd-form label.cd-password{background-image:url("/wp-content/themes/runoob/assets/img/cd-icon-password.svg")}.cd-form input{margin:0;padding:0;border-radius:.25em}.cd-form input.full-width{width:80%}.cd-form input.full-width2{width:94%}.cd-form input.has-padding{padding:12px 20px 12px 50px}.cd-form input.has-border{border:1px solid #d2d8d8;-webkit-appearance:none;-moz-appearance:none;-ms-appearance:none;-o-appearance:none;appearance:none}.cd-form input.has-border:focus{border-color:#98b880;box-shadow:0 0 5px rgba(52,54,66,0.1);outline:0}.cd-form input.has-error{border:1px solid #d76666}.cd-form input[type=password]{padding-right:65px}.cd-form input[type=submit]{padding:16px 0;cursor:pointer;background:#96b97d;color:#FFF;font-weight:bold;border:0;-webkit-appearance:none;-moz-appearance:none;-ms-appearance:none;-o-appearance:none;appearance:none;font-size:1.2em;font-weight:bold}.no-touch .cd-form input[type=submit]:hover,.no-touch .cd-form input[type=submit]:focus{background:#3599ae;outline:0}@media only screen and (min-width:600px){.cd-form{padding:2em}.cd-form .fieldset{margin:2em 0}.cd-form .fieldset:first-child{margin-top:0}.cd-form .fieldset:last-child{margin-bottom:0}.cd-form input.has-padding{padding:16px 20px 16px 50px}.cd-form input[type=submit]{padding:16px 0}}.cd-close-form{display:block;position:absolute;width:40px;height:40px;right:0;top:-40px;background:url("/wp-content/themes/runoob/assets/img/cd-icon-close.svg") no-repeat center center;text-indent:100%;white-space:nowrap;overflow:hidden}@media only screen and (min-width:1170px){}#cd-login,#cd-signup,#cd-reset-password{display:none}#cd-login.is-selected,#cd-signup.is-selected,#cd-reset-password.is-selected{display:block}
+</style>
+<div class="cd-user-modal"> 
+	<div class="cd-user-modal-container">
+		<ul class="cd-switcher">
+			<li><a href="javascript:;">用户登录</a></li>
+			<li><a href="javascript:;">注册新用户</a></li>
+		</ul>
+
+		<div id="cd-login"> <!-- 登录表单 -->
+			<div class="cd-form">
+				<p class="fieldset">
+					<label class="image-replace cd-username" for="signin-username">用户名</label>
+					<input class="full-width has-padding has-border" id="signin-username" name="username" type="text" placeholder="输入用户名">
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signin-password">密码</label>
+					<input class="full-width has-padding has-border" id="signin-password" name="password" type="password" placeholder="输入密码">
+				</p>
+				
+				<p class="fieldset">
+					<input type="checkbox" id="remember-me" checked="">
+					<label for="remember-me">记住登录状态</label>
+          <a href="https://www.runoob.com/reset-password" style="float: right;padding-right: 20px;" target="_blank">忘记密码？</a>
+				</p>
+ 				<input type="hidden" name="action" value="signin">
+				<p class="fieldset">
+					<input class="full-width2" type="submit" value="登 录">
+				</p>
+        <div class="err-msg"></div>
+			</div>
+		</div>
+
+		<div id="cd-signup"> <!-- 注册表单 -->
+			<div class="cd-form">
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="verifycode">邀请码</label>
+					<input class="full-width has-padding has-border" id="signup-verifycode" name="verifycode" type="text" placeholder="输入邀请码">
+				</p>
+				<p class="fieldset">
+					<label class="image-replace cd-username" for="signup-username">用户名</label>
+					<input class="full-width has-padding has-border" id="signup-username" name="name" type="text" placeholder="输入用户名">
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-email" for="signup-email">邮箱</label>
+					<input class="full-width has-padding has-border" name="email" id="signup-email" type="email" placeholder="输入mail">
+				</p>
+
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signup-password">密码</label>
+					<input class="full-width has-padding has-border" id="signup-password" name="password" type="password" placeholder="输入密码">
+				</p>
+				<p class="fieldset">
+					<label class="image-replace cd-password" for="signup-password2">重复输入密码</label>
+					<input class="full-width has-padding has-border" id="signup-password2" name="password2" type="password" placeholder="重复输入密码">
+				</p>
+				
+				<!-- 
+				<p class="fieldset">
+					<input type="checkbox" id="accept-terms">
+					<label for="accept-terms">我已阅读并同意 <a href="javascript:;">用户协议</a></label>
+				</p>
+				 -->
+				 
+				 <input type="hidden" name="action" value="signup">
+				<p class="fieldset">
+					<input class="full-width2" type="submit" value="注册新用户">
+				</p>
+				<p class="fieldset">
+				  <a href="https://www.runoob.com/w3cnote/runoob-user-test-intro.html#invite" target="_blank">如何获取邀请码？</a>
+				  </p>
+				<div class="err-msg"></div>
+			</div>
+
+		</div>
+
+		<a href="javascript:;" class="cd-close-form">关闭</a>
+	</div>
+</div> 
+<script src="./1_files/main.min.js"></script>
+
+
+</body></html>

@@ -1,11 +1,10 @@
-module webPRJ
+module rpcPRJ
 
 go 1.12
 
 require (
-	github.com/gorilla/websocket v1.4.0
+	github.com/micro-in-cn/all-in-one v0.0.0-20190527110852-91cecbc4a5d7
 	github.com/micro/go-micro v1.5.0
-	github.com/micro/go-web v1.0.0 // indirect
 	github.com/nats-io/nats-server/v2 v2.0.0 // indirect
 )
 

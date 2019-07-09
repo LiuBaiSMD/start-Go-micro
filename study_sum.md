@@ -89,3 +89,72 @@ import   "shorturl/model"  //加载GOPATH/src/shorturl/model模块
 7.不要无脑尝试，寻找方法比漫无目的投机取巧更重要
 
 ## 未完成：实例阅读、分析，总结代码结构调整
+
+# 2019.07.04
+1.Micro API各种handler启动方法实例运行
+有的代码结构基本一致，只是不同的handler启动方式有所不同
+
+2.RPC [RPC introduction](https://github.com/micro-in-cn/all-in-one/tree/master/basic-practices/micro-api/rpc)
+通过RPC向go-micro应用转送请求，通常只传送请求body，头信息不封装。只接收POST请求
+RPC模式下API只接收POST方式的请求，并且只支持内容格式content-type为application/json或者application/protobuf。
+
+3.API [API introduction](https://github.com/micro-in-cn/all-in-one/tree/master/basic-practices/micro-api/api)
+与rpc差不多，但是会把完整的http头封装向下传送，不限制请求方法
+
+4.http [http introduction](https://github.com/micro-in-cn/all-in-one/tree/master/basic-practices/micro-api/proxy)
+与http差不多，但是支持websocket
+
+5.event [event introduction](https://github.com/micro-in-cn/all-in-one/tree/master/basic-practices/micro-api/event)
+代理event事件服务类型的请求
+
+6.meta [meta introduction](https://github.com/micro-in-cn/all-in-one/tree/master/basic-practices/micro-api/meta)
+元数据，通过在代码中的配置选择使用上述中的某一个处理器,运行API网关
+可以看到，API启动时，并没有声明handler模式，故而使用的RPC模式。所以Meta API其实是在RPC模式的基础上，通过在接口层声明端点元数据而指定服务的
+
+7.web [web introduction](https://github.com/micro-in-cn/all-in-one/tree/master/basic-practices/micro-api/web)
+与http差不多，但是支持websocket
+
+8.go time包 
+通过使用time.After定时阻塞，以及time.NewTicker(time.Second)进行周期性操作，实现一个定时结束的函数处理
+```
+package main
+
+import (
+	"time"
+	"fmt"
+)
+
+func main()  {
+	tchan := time.After(time.Second*3)
+	fmt.Printf("tchan type=%T\n",tchan)
+	fmt.Println("mark 1")
+	fmt.Println("tchan=",<-tchan)
+	fmt.Println("mark 2")
+}
+```
+
+```
+package main
+
+import (
+	"time"
+	"fmt"
+)
+
+func pub() {
+	tick := time.NewTicker(time.Second)
+	i := 0
+	for range tick.C {
+		fmt.Println(time.Now().String())
+		//fmt.Println(1)
+
+		i++
+	}
+}
+
+func main(){
+	pub()
+}
+```
+9.go micro broker [broker实例](https://github.com/micro-in-cn/all-in-one/blob/master/basic-practices/micro-broker/basic/main.go)
+go micro 的发布订阅类型，启用一个全局变量进行发布订阅消息沟通

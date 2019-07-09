@@ -2,7 +2,7 @@ package main
 
 import (
     "fmt"
-    hello_world "goPRJ/proto/helloPT"
+    hello_world "servicePRJ/helloPT"
     "github.com/micro/go-micro"
     "context"
 )

@@ -1,57 +1,58 @@
 # API
 
-This repo contains examples for using the micro api.
+This example makes use of the "api" handler.
 
-## Overview
+The api expects you use the [api.Request/Response](https://github.com/micro/go-api/blob/master/proto/api.proto) protos.
 
-The [micro api](https://github.com/micro/micro/tree/master/api) is an API gateway which serves HTTP and routes dynamically based on service discovery.
+The micro api request handler gives you full control over the http request and response while still leveraging RPC and 
+any transport plugins that use other protocols beyond http in your stack such as grpc, nats, kafka.
 
-The micro api by default serves the namespace go.micro.api. Our service names include this plus a unique name e.g go.micro.api.example. 
-You can change the namespace via the flag `--namespace=`.
+## Usage
 
-The micro api has a number of different handlers which lets you define what kind of API services you want. See examples below. The handler 
-can be set via the flag `--handler=`. The default handler is "rpc".
+Run the micro API
 
-## Contents
+```
+micro api --handler=api
+```
 
-- api - an rpc handler that provides the entire http headers and request
-- proxy - use the api as a http reverse proxy
-- rpc - make an rpc request to a go-micro app
-- meta - specify which handler to use via configuration in code
+Run this example
 
-## Request Mapping
+```
+go run api.go
+```
 
-### API/RPC
 
-Micro maps http paths to rpc services. The mapping table can be seen below.
+## Calling the service
 
-The default namespace for the api is **go.micro.api** but you can set your own namespace via `--namespace`.
+Make a GET request to /example/call which will call go.micro.api.example Example.Call
 
-URLs are mapped as follows:
+```
+curl "http://localhost:8080/example/call?name=john"
+```
 
-Path	|	Service	|	Method
-----	|	----	|	----
-/foo/bar	|	go.micro.api.foo	|	Foo.Bar
-/foo/bar/baz	|	go.micro.api.foo	|	Bar.Baz
-/foo/bar/baz/cat	|	go.micro.api.foo.bar	|	Baz.Cat
+Make a POST request to /example/foo/bar which will call go.micro.api.example Foo.Bar
 
-Versioned API URLs can easily be mapped to service names:
+```
+curl -H 'Content-Type: application/json' -d '{}' http://localhost:8080/example/foo/bar
+```
 
-Path	|	Service	|	Method
-----	|	----	|	----
-/foo/bar	|	go.micro.api.foo	|	Foo.Bar
-/v1/foo/bar	|	go.micro.api.v1.foo	|	Foo.Bar
-/v1/foo/bar/baz	|	go.micro.api.v1.foo	|	Bar.Baz
-/v2/foo/bar	|	go.micro.api.v2.foo	|	Foo.Bar
-/v2/foo/bar/baz	|	go.micro.api.v2.foo	|	Bar.Baz
+## Set Namespace
 
-### Proxy Mapping
+Run the micro API with custom namespace
 
-Starting the API with `--handler=http` will reverse proxy requests to backend services within the served API namespace (default: go.micro.api). 
+```
+micro api --handler=api --namespace=com.foobar.api
+```
 
-Example
+or
+```
+MICRO_API_NAMESPACE=com.foobar.api micro api --handler=api
+```
 
-Path	|	Service	|	Service Path
----	|	---	|	---
-/greeter	|	go.micro.api.greeter	|	/greeter
-/greeter/:name	|	go.micro.api.greeter	|	/greeter/:name
+Set service name with the namespace
+
+```
+service := micro.NewService(
+        micro.Name("com.foobar.api.example"),
+)
+```   

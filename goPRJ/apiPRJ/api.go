@@ -7,8 +7,8 @@ import (
 
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/errors"
-	api "goPRJ/proto/APIPT"
-	proto "goPRJ/proto/APIPT"
+	api "apiPRJ/APIPT"
+	proto "apiPRJ/APIPT"
 	"context"
 )
 

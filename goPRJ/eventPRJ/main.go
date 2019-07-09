@@ -37,10 +37,9 @@ func (e *Event) process(ctx context.Context, event *proto.Event) error {
 func main() {
 	service := micro.NewService(
 		// 服务名可以随意
-		micro.Name("user2"),
+		micro.Name("test"),
 	)
 	service.Init()
-
 	// register subscriber
 	micro.RegisterSubscriber("go.micro.evt.user", service.Server(), new(Event))
 
