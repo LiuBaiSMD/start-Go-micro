@@ -1,4 +1,4 @@
-# micro学习
+# 1.micro学习
 ## 搭建micro环境
 [Micro China](https://github.com/micro-in-cn)
 
@@ -32,7 +32,7 @@ protoc-gen-micro（Protobuf code generation for micro）：在$GOPATH目录下�
 
 [protocol buffers生成go代码原理](https://www.cnblogs.com/charlieroro/p/9043337.html)
 
-# 如何创建实例
+# 2.如何创建实例
 1.通过[环境安装教程](https://github.com/LiuBaiSMD/start-Go-micro/blob/master/build-start-micro.md)安装好环境
 
 2.下载goPRJ到本地GO项目存放路径下(如使用gomod管理包，请将本项目放置在$GOPATH路径外)
@@ -82,5 +82,5 @@ go run helloclient.go
 ```
 在运行后会在界面返回对应结果
 
-# goTestPRJ
+# 3.goTestPRJ
 存放各种实例测试集合，以便测试实际使用效果
