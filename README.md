@@ -81,3 +81,6 @@ go run hello.go
 go run helloclient.go
 ```
 在运行后会在界面返回对应结果
+
+# goTestPRJ
+存放各种实例测试集合，以便测试实际使用效果
