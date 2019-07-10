@@ -47,7 +47,7 @@ func main() {
 		// 接口方法，一定要在proto接口中存在，不能是类的自有方法
 		Name: "Example.Call",
 		// http请求路由，支持POSIX风格
-		Path: []string{"/example"},
+		Path: []string{"/test"},
 		// 支持的方法类型
 		Method: []string{"POST"},
 		// 该接口使用的API转发模式

@@ -9,11 +9,12 @@ import (
 )
 
 var (
+	//topic = "mu.micro.book.topic.payment.done"
 	topic = "mu.micro.book.topic.payment.done"
 )
 
 func pub() {
-	tick := time.NewTicker(time.Second)
+	tick := time.NewTicker(time.Microsecond * 500000)
 	i := 0
 	for range tick.C {
 		msg := &broker.Message{
@@ -32,14 +33,51 @@ func pub() {
 	}
 }
 
+func pubHandler(p broker.Publication) error{
+	fmt.Printf("\nHeader: %s", p.Message().Header)
+	return nil
+}
+
 func sub() {
-	_, err := broker.Subscribe(topic,func(p broker.Publication) error {
-		fmt.Printf("[sub] Received Body: %s, Header: %s",string(p.Message().Body), p.Message().Header)
-		return nil
-	})
+	_, err := broker.Subscribe(topic, pubHandler)
+	fmt.Println("sub")
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func pubHandler1(p broker.Publication) error{
+	fmt.Printf("\n[+++++++++sub] Received Body: %s, Header: %s",string(p.Message().Body), p.Message().Header)
+
+	return nil
+}
+
+func sub2() {
+	_, err := broker.Subscribe(topic, pubHandler1)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+//func sub() {
+//	_, err := broker.Subscribe(topic,func(p broker.Publication) error {
+//		fmt.Printf("[sub] Received Body: %s, Header: %s",string(p.Message().Body), p.Message().Header)
+//		return nil
+//	})
+//	if err != nil {
+//		fmt.Println(err)
+//	}
+//}
+
+func sub1() {
+	//_, err := broker.Subscribe(topic,func(p broker.Publication) error {
+	//	fmt.Printf("[sub] Received Body: %s, Header: %s",string(p.Message().Body), p.Message().Header)
+	//	return nil
+	//})
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	fmt.Println("\nsub 1 ")
 }
 
 func main() {
@@ -50,8 +88,8 @@ func main() {
 		log.Fatalf("Broker 连接错误：%v", err)
 	}
 
-	go pub()
+	//go pub()
 	go sub()
-
-	<-time.After(time.Second * 10)
+	<-time.After(time.Second * 100)
+	//go sub1()
 }

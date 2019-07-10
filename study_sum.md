@@ -90,7 +90,7 @@ import   "shorturl/model"  //加载GOPATH/src/shorturl/model模块
 
 ## 未完成：实例阅读、分析，总结代码结构调整
 
-# 2019.07.04
+# 2019.07.09
 1.Micro API各种handler启动方法实例运行
 有的代码结构基本一致，只是不同的handler启动方式有所不同
 
@@ -158,3 +158,53 @@ func main(){
 ```
 9.go micro broker [broker实例](https://github.com/micro-in-cn/all-in-one/blob/master/basic-practices/micro-broker/basic/main.go)
 go micro 的发布订阅类型，启用一个全局变量进行发布订阅消息沟通
+
+# 2019.07.10
+1.开始阅读micro broker源码
+发布订阅双方商定一个共同的topic作为信号，当以一个topic信号发布消息时，监听该topic的订阅方将受到信号，并可以使用对应的处理函数方法。
+
+2.Broker接口
+```
+Broker
+type Broker interface {
+    Options() Options
+    Address() string
+    Connect() error ///启动broker服务
+    Disconnect() error ///关闭Broker服务
+    Init(...Option) error
+    Publish(string, *Message, ...PublishOption) error  ///publish topic message
+    Subscribe(string, Handler, ...SubscribeOption) (Subscriber, error)  ///注册 topic message 的 subscribe
+    String() string
+}
+```
+Connct:启动一个broker监听，是否有人注册或者订阅topic
+publish:发现topic的相关服务，组装message以及body
+
+3.golang中  "..."用法
+func test1(args ...string) { //可以接受任意个string参数}
+
+4.defer 用法
+1.defer后面必须是函数调用语句，不能是其他语句，否则编译器会出错
+2.defer后面的函数在defer语句所在的函数执行结束的时候会被调用
+3.对象锁的自动释放
+4.注意0：如何让defer函数在宿主函数的执行中间执行
+5.注意1：多个defer的执行顺序
+如果函数里面有多条defer指令，他们的执行顺序是反序，即后定义的defer先执行
+6.注意2：defer函数参数的计算时间点
+defer函数的参数是在defer语句出现的位置做计算的，而不是在函数运行的时候做计算的，即所在函数结束的时候计算的。(参数是defer语句的实时位置，而局部变量是在运行时取值的)
+
+5.tag使用
+```
+type Person struct {
+    Name string `json:"name"`
+    Age  int    `json:"age"`
+}
+```
+1.如果一个域不是以大写字母开头的，那么转换成json的时候，这个域是被忽略的
+2.如果没有使用json:"name"tag，那么输出的json字段名和域名是一样的
+3.总结一下，json:"name"格式串是用来指导json.Marshal/Unmarshal，在进行json串和golang对象之间转换的时候映射字段名使用的。
+
+6.方法的参数使用interface{}代表可以使用任意类型参数
+```
+func validateStruct(s interface{}) bool
+```

@@ -25,7 +25,7 @@ func main() {
 
 	// static files
 	fmt.Println("html1")
-	service.Handle("/websocket/", http.StripPrefix("/websocket/", http.FileServer(http.Dir("html"))))
+	service.Handle("/websocket/", http.StripPrefix("/websocket/", http.FileServer(http.Dir("1.html"))))
 	// websocket interface
 	service.HandleFunc("/websocket/hi", hi)
 	fmt.Println("html2")
