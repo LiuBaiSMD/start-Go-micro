@@ -208,3 +208,31 @@ type Person struct {
 ```
 func validateStruct(s interface{}) bool
 ```
+
+# 2019.07.11
+1.了解micro config使用读取配置
+```
+if err := config.Load(file.NewSource(
+		file.WithPath("./config/config.yml"),
+		file.WithPath("./config/config.json"),
+	)); err != nil {
+		fmt.Println(err)
+		return
+	}
+```
+
+2.通过encoding和reader方法将不同格式的配置统一化并且合并，
+Encoder负责资源配置编码、解码。后台资源可能会存在不同的格式，编码器负责处理不同的格式，默认的格式是Json。
+编码器支持以下格式：
+json、yaml、toml、xml、hcl
+Reader
+Reader负责把多个changeset集合并成一个可查询的值集。
+Reader复用Encoder编码器将changeset集解码成map[string]interface{}格式，然后将它们合成一个changeset。
+它通过格式来确定使用哪个解码器。合成的changeset中的Values可以转成Go类型值，而如果有值不能加载时，其中的值也可以作为回退值使用。
+
+3.Encoder和Reader有什么不同？
+Encoder编码器负责的是后台资源数据的编解码工作。而Reader则使用不同的encoder解码，解码的配置源可能有不同的格式，而这些encoder会解决这个事情并合并成单一编码格式。
+如果是文件资源，则配置的解码器取决于文件的扩展名。
+如果是基于consul的配置、etcd或类似的键值对资源，则可能会从前缀中带有多个键（特定规则）的加载，也就是说资源需要明白编码，才能返回单一的变更集
+
+4.一个变量的大小跟机器的硬件有关，与语言无太大关系
