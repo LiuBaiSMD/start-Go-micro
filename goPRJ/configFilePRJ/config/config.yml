@@ -1,0 +1,11 @@
+hosts:
+  database:
+    name: YAML
+    address: 10.0.0.1
+    port: 5555
+    test1: test1
+  cache:
+    name: wuxun
+    address: 127.0.0.1
+    port: 746
+    test: test

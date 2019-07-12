@@ -24,8 +24,8 @@ func f1(p I) {
 	p.Put(888)
 }
 
-func f2(p interface{}) {
-	switch t := p.(type) {
+func f2(p ...interface{}) {
+	switch t := p[0].(type) {
 	case int:
 		fmt.Println("this is int number")
 	case I:
@@ -57,7 +57,7 @@ func main() {
 	//f1(&s)
 	fmt.Println(s.Get())
 	fmt.Println(s.i)
-	f2("hello")
+	f2("hello","test")
 	//dd(&s)
 	//fmt.Println(s.Get())
 	//aa(s)
