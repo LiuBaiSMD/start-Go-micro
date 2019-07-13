@@ -265,3 +265,23 @@ go-plugins插件集
 6.通过micro new指令可以快速拉取一个go micro代码模板
 
 7.registry注册服务、selector服务发现、broker发布订阅等
+
+# 2019.07.13
+1.consul启动，micro service、micro api、consul联合启动 [consul micro 实例](https://github.com/LiuBaiSMD/start-Go-micro/tree/master/goPRJ/microConsulPRJ)
+```
+	reg := consul.NewRegistry(func(op *registry.Options) {
+		op.Addrs = []string{
+			"127.0.0.1:8500",
+		}
+	})
+	service := micro.NewService(
+	micro.Registry(reg),
+	micro.Name("helloworld"),
+	micro.RegisterTTL(time.Second * 5),
+	micro.RegisterInterval(time.Second *4),
+	)
+```
+
+2.grpc实例[grpc官方实例代码](https://github.com/LiuBaiSMD/start-Go-micro/tree/master/goPRJ/grpcPRJ)
+
+
