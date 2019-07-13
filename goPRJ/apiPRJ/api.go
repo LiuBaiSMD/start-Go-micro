@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/errors"
@@ -96,6 +97,8 @@ func (f *Test) TestReq(ctx context.Context, req *api.Request, rsp *api.Response)
 func main() {
 	service := micro.NewService(
 		micro.Name("go.micro.api.example"),
+		micro.RegisterTTL(time.Second * 2),
+		micro.RegisterInterval(time.Second *4),
 	)
 
 	service.Init()

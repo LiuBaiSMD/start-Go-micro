@@ -2,6 +2,7 @@ package main
 
 import (
         "log"
+        "time"
 
         "github.com/micro/go-micro"
         proto "greeterPRJ/greeterPT"
@@ -19,6 +20,7 @@ func main() {
         function := micro.NewFunction(
                 micro.Name("greeter"),
                 micro.Version("latest"),
+                micro.RegisterTTL(time.Second*10),
         )
 
         function.Init()
