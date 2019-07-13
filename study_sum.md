@@ -236,3 +236,32 @@ Encoder编码器负责的是后台资源数据的编解码工作。而Reader则�
 如果是基于consul的配置、etcd或类似的键值对资源，则可能会从前缀中带有多个键（特定规则）的加载，也就是说资源需要明白编码，才能返回单一的变更集
 
 4.一个变量的大小跟机器的硬件有关，与语言无太大关系
+
+# 2019.07.12
+1、Micro是一个专注于简化分布式系统开发的微服务生态系统。
+```
+go-micro - A pluggable Go RPC framework for writing a microservice; service discovery, client/server rpc, pub/sub, etc.
+
+go-plugins - Plugins for go-micro including etcd, kubernetes, nats, rabbitmq, grpc, etc.
+
+micro - A microservice toolkit containing traditional entry points; API Gateway, CLI, Slack Bot, Sidecar and Web UI.
+```
+
+2.梳理Micro思维导图
+[Micro思维导图](https://app.yinxiang.com/shard/s33/nl/25249978/69093c36-0977-487e-8014-65318af620b0/)
+go Micro (由go-micro、micro、go-plugins、protobuf等组成)
+go-micro源码集、
+micro工具集、
+go-plugins插件集
+
+3.Micro学习笔记 
+[Micro学习笔记](http://note.youdao.com/noteshare?id=91f423a06568a35e8e16cae7e1e1aeb2)
+
+4.go 学习笔记
+[go 学习笔记](http://note.youdao.com/noteshare?id=f7a5183efdc2c1e23be4666e2a80923c)
+
+5.在启动服务时可以指定服务的TTL、interval等信息
+
+6.通过micro new指令可以快速拉取一个go micro代码模板
+
+7.registry注册服务、selector服务发现、broker发布订阅等
