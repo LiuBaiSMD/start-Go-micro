@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -24,29 +23,25 @@ func main() {
 	}
 
 	// static files
-	fmt.Println("html1")
-	service.Handle("/websocket/", http.StripPrefix("/websocket/", http.FileServer(http.Dir("1.html"))))
+	service.Handle("/websocket/", http.StripPrefix("/websocket/", http.FileServer(http.Dir("html"))))
+
 	// websocket interface
 	service.HandleFunc("/websocket/hi", hi)
-	fmt.Println("html2")
 
 	if err := service.Run(); err != nil {
 		log.Fatal("Run: ", err)
 	}
-	fmt.Println("html3")
-
 }
 
 func hi(w http.ResponseWriter, r *http.Request) {
+	log.Printf("hi")
 
-	log.Println("i get your request!")
-	fmt.Println(r.Header)
 	c, err := upGrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Printf("upgrade: %s", err)
 		return
 	}
-	fmt.Println("html4")
+
 	defer c.Close()
 	for {
 		mt, message, err := c.ReadMessage()
