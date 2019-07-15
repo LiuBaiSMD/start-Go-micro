@@ -299,12 +299,13 @@ slack项目的接口API使用封装接口[nlopes/slack](https://github.com/nlope
 [bot token生成网页](https://bamboorat.slack.com/services/你的机器人ID)
 
 6.使用API给channel发送信息
-[测试]()
+[测试](https://github.com/LiuBaiSMD/start-Go-micro/blob/master/goPRJ/slackApiPRJ/sed2Channel.go)
 
 7.使用API查询用户信息
-[测试]()
+[测试](https://github.com/LiuBaiSMD/start-Go-micro/blob/master/goPRJ/slackApiPRJ/getUserInfo.go)
 
 8.使用API查询用户所在组信息
+[测试](https://github.com/LiuBaiSMD/start-Go-micro/blob/master/goPRJ/slackApiPRJ/getGroupInfo.go)
 
 9.slack API接口网站
 [slack API统计](https://www.npmjs.com/package/slack)
