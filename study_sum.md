@@ -284,4 +284,27 @@ go-plugins插件集
 
 2.grpc实例[grpc官方实例代码](https://github.com/LiuBaiSMD/start-Go-micro/tree/master/goPRJ/grpcPRJ)
 
+# 2019.07.14
+1.开始尝试go的slackAPI接口使用
+slack项目的接口API使用封装接口[nlopes/slack](https://github.com/nlopes/slack)
 
+2.slack中bot的ID可以通过网页链接查看
+
+3.channel的ID可以通过网页链接查看
+
+4.用户token获取网站
+[user token生成网页](https://api.slack.com/custom-integrations/legacy-tokens)
+
+5.bot的token生成网页
+[bot token生成网页](https://bamboorat.slack.com/services/你的机器人ID)
+
+6.使用API给channel发送信息
+[测试]()
+
+7.使用API查询用户信息
+[测试]()
+
+8.使用API查询用户所在组信息
+
+9.slack API接口网站
+[slack API统计](https://www.npmjs.com/package/slack)
