@@ -309,3 +309,7 @@ slack项目的接口API使用封装接口[nlopes/slack](https://github.com/nlope
 
 9.slack API接口网站
 [slack API统计](https://www.npmjs.com/package/slack)
+
+# 2019.07.16
+1.slack 接口api使用汇总
+[slack API](http://note.youdao.com/noteshare?id=dcf96096dcd325d6fee5fff80e58da71)
