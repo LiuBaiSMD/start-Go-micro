@@ -9,7 +9,7 @@ func main() {
 //api := slack.New("xoxb-689344750534-682886786835-pnr0cMHputWkcUlc0TOqyW1r")
 // If you set debugging, it will log all requests to the console
 // Useful when encountering issues
-api := slack.New("xoxp-689344750534-686762631748-696647166822-01946982c1f49afdd5976302d5a78ee9", slack.OptionDebug(true))
+api := slack.New("xoxp-689344750534-686762631748-697340217207-b0e4f7106eae9c3eb8460c95f7b97da5", slack.OptionDebug(true))
 groups, err := api.GetGroups(false)
 if err != nil {
 fmt.Printf("%s\n", err)

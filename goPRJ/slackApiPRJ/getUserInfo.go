@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	api := slack.New("xoxp-689344750534-686762631748-696647166822-01946982c1f49afdd5976302d5a78ee9")
+	api := slack.New("xoxp-689344750534-686762631748-684228523555-7969f76dc4314223ff7fa64965402bd9")
 	user, err := api.GetUserInfo("UL6NEJKN0")
 	if err != nil {
 		fmt.Printf("%s\n", err)
