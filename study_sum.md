@@ -313,3 +313,19 @@ slack项目的接口API使用封装接口[nlopes/slack](https://github.com/nlope
 # 2019.07.16
 1.slack 接口api使用汇总
 [slack API](http://note.youdao.com/noteshare?id=dcf96096dcd325d6fee5fff80e58da71)
+
+# 2019.07.17
+1.slack token获取
+[获取code链接](https://api.slack.com/docs/oauth)
+通过设置好
+```
+https://slack.com/oauth/authorize
+client_id - 在您创建应用时发出（必填）
+scope - 请求权限（见下文）（必填）
+redirect_uri - 重定向到的URL（见下文）（可选）
+state - 完成后传回的唯一字符串（可选）
+team - 要尝试限制的工作空间的Slack团队ID（可选）
+```
+相应参数即可
+
+2
