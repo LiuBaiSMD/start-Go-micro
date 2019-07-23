@@ -328,4 +328,17 @@ team - 要尝试限制的工作空间的Slack团队ID（可选）
 ```
 相应参数即可
 
-2
+# 2019.7.23
+[学习笔记](http://note.youdao.com/noteshare?id=92279b39a29401faf68d04a8b6612852)
+1.学习micro中go-plugins中etcd插件
+从中学习正向代理与反向代理的区别、iso、TCP/IP的协议以及各层分布
+
+2.输入url到页面加载流程
+
+3.ARP、RARP区别
+
+4.http中长连接和websocket的长连接的区别
+[介绍与区别分析](https://www.cnblogs.com/Catherine001/p/8359153.html)
+
+5.http和socket之长连接和短连接区别
+[http和socket之长连接和短连接区别](https://www.jianshu.com/p/b68d2b26f5f4)
