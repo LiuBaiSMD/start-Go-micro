@@ -342,3 +342,12 @@ team - 要尝试限制的工作空间的Slack团队ID（可选）
 
 5.http和socket之长连接和短连接区别
 [http和socket之长连接和短连接区别](https://www.jianshu.com/p/b68d2b26f5f4)
+
+# 2019.7.24
+1.channel使用
+
+[channel介绍](https://studygolang.com/articles/9532)
+
+2.转正答辩ppt准备
+
+3.go的大小写变量代表private、public
