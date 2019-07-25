@@ -351,3 +351,23 @@ team - 要尝试限制的工作空间的Slack团队ID（可选）
 2.转正答辩ppt准备
 
 3.go的大小写变量代表private、public
+
+# 2019.7.25
+1.select用法
+一个select语句用来选择哪个case中的发送或接收操作可以被立即执行。它类似于switch语句，但是它的case涉及到channel有关的I/O操作。
+
+2.go-plugins 插件
+1 ETCD
+
+[etcd基本原理介绍以及雪花算法](https://www.jianshu.com/p/3bd041807974)、
+[etcd基本介绍以及使用场景](https://blog.csdn.net/bbwangj/article/details/82584988)
+2 Kubernets
+
+[k8s核心概念](http://www.dockone.io/article/932)
+3 NATS
+
+[概要介绍](https://www.jianshu.com/p/2110d4f43d04)
+
+3.go语言time模块使用
+
+4.go struct的方法绑定
