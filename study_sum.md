@@ -371,3 +371,40 @@ team - 要尝试限制的工作空间的Slack团队ID（可选）
 3.go语言time模块使用
 
 4.go struct的方法绑定
+
+# 2019.7.26
+1.双向心跳的实现
+
+```
+1.srver端使用普通的micro创建websocket服务端，对请求的域名与方法进行绑定即可，再在绑定的方法中可以使用多个协程或者调用不同的方法处理不同事务
+2.client端使用普通的websocket连接即可，设置连接的Ip以及域名，进行连接，通过多个协程进行处理不同的事务。协程间可以通过channel通信。
+```
+
+2.select用法
+一个select语句用来选择哪个case中的发送或接收操作可以被立即执行。它类似于switch语句，但是它的case涉及到channel有关的I/O操作。
+如果同时多个case chan到达，所有的case在程序不中断的情况下会执行所有的case
+
+3.time.NewTimer计时器
+Go语言的定时器实质是单向通道，time.Timer结构体类型中有一个time.Time类型的单向chan
+type Timer struct {
+    C <-chan Time
+    r runtimeTimer
+}
+time.After:指定一段时间后释放一个channel，不会阻塞后面的进程。
+tchan := time.NewTimer(time.Second*3)	：三秒后放入一个信息
+tchan1 := time.After(time.Second*3)		：三面后放入一个信息，实际调用的是一个NewTimer，返回一个time.Time类型的通道消息
+tchan2 := time.NewTicker(time.Second * 3)：每隔三秒放入一个信息
+ticker类型:一个循环计时器，每隔一段时间进行一次channle<-,
+
+```
+// Tick无法取消
+      tick := time.Tick(1 * time.Minute)
+      for _ = range tick {
+            // do something
+      }
+ // 可通过调用ticker.Stop取消
+      ticker := time.NewTicker(1 * time.Minute)
+      for _ = range tick {
+            // do something
+      }
+```
