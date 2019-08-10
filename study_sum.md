@@ -493,3 +493,12 @@ ss= append(ss,rear...)
 数据还要表示代码。支持闭包的多数语言都将函数作为第一级对象，就是说这些函数可以存储到变量中作为参数传递给其他函数，最重要的是能够被函数动态创建和返回。
 ```
 
+# 2019.8.10
+1.在海外服务器搭建websocket服务，并能够对请求进行转发
+
+2.nginx配置转发，对于websocket服务需要使用upgrade请求头
+
+3.nginx安装的路径在./configure中指定
+```
+./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/usr/local/src/pcre-8.35
+```
