@@ -12,7 +12,7 @@ jwt:
   secretKey: W6VjDud2W1kMG3BicbMNlGgI4ZfcoHtMGLWr
 redis:
   enabled: true
-  docker_conn: redis
+  docker_conn: redis:6379
   conn: 127.0.0.1:6379
   dbNum: 8
   password:
@@ -35,4 +35,3 @@ mysql:
   url: root:123456@tcp(127.0.0.1:3306)/micro_user # 本地测试
   maxIdleConnection: 100
   maxOpenConnection: 130
-change: 1

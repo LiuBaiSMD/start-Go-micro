@@ -156,35 +156,6 @@ func PutJson(url, body string) (ret string, err error, resp *http.Response) {
 	return string(data), nil, resp
 }
 
-func firstFind(oldConf map[string]interface{}, newConf map[string]string)(addConf map[string]interface{}, subConf map[string]interface{}, changeConf map[string]interface{}) {
-	//fmt.Println("------------->oldConf", oldConf)
-	//fmt.Println("------------->newConf", newConf)
-	//先遍历一遍查看减少的配置
-	addConf = make(map[string]interface{})
-	subConf = make(map[string]interface{})
-	changeConf = make(map[string]interface{})
-	for key, value := range oldConf {
-		//fmt.Println(key, ":", value)
-		if newData, ok := newConf[key]; ok{
-			if newData != value{
-				changeConf[string(key)] = value
-			}
-		}else{
-			subConf[string(key)] = value
-		}
-	}
-	for key, value := range newConf {
-		//fmt.Println(key, ":", value)
-		if _, ok := oldConf[key]; !ok{
-			addConf[string(key)] = string(value)
-		}
-	}
-	fmt.Println("add---------->", addConf)
-	fmt.Println("sub---------->", subConf)
-	fmt.Println("change------->", changeConf)
-	return addConf, subConf, changeConf
-}
-
 func findConfDif(oldConf map[string]string, newConf map[string]string)(addConf map[string]string, subConf map[string]string, changeConf map[string]string) {
 	//遍历旧配置一遍查看减少的配置,和改变的配置
 	addConf = make(map[string]string)
@@ -249,4 +220,33 @@ func print_json(m map[string]interface{}) {
 			fmt.Println(k, "is of a type I don't know how to handle ", fmt.Sprintf("%T", v))
 		}
 	}
+}
+
+func firstFind(oldConf map[string]interface{}, newConf map[string]string)(addConf map[string]interface{}, subConf map[string]interface{}, changeConf map[string]interface{}) {
+	//fmt.Println("------------->oldConf", oldConf)
+	//fmt.Println("------------->newConf", newConf)
+	//先遍历一遍查看减少的配置
+	addConf = make(map[string]interface{})
+	subConf = make(map[string]interface{})
+	changeConf = make(map[string]interface{})
+	for key, value := range oldConf {
+		//fmt.Println(key, ":", value)
+		if newData, ok := newConf[key]; ok{
+			if newData != value{
+				changeConf[string(key)] = value
+			}
+		}else{
+			subConf[string(key)] = value
+		}
+	}
+	for key, value := range newConf {
+		//fmt.Println(key, ":", value)
+		if _, ok := oldConf[key]; !ok{
+			addConf[string(key)] = string(value)
+		}
+	}
+	fmt.Println("add---------->", addConf)
+	fmt.Println("sub---------->", subConf)
+	fmt.Println("change------->", changeConf)
+	return addConf, subConf, changeConf
 }
