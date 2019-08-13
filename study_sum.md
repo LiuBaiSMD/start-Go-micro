@@ -502,3 +502,27 @@ ss= append(ss,rear...)
 ```
 ./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/usr/local/src/pcre-8.35
 ```
+
+# 2019.8.12
+1.对于docker-compose，如果需要通过localhost访问本机docker服务，需要设置network_mode:host,加入到宿主机器的本地网络段中，即可通过lcoalhost:port方式访问其他服务
+
+2.websocket服务中，需要制定upgrade让socekt升级为websocket协议
+
+3.github使用
+```
+查看以及git add的文件
+git status
+git reset HEAD file
+git status 先看一下add 中的文件 
+git reset HEAD 如果后面什么都不跟的话 就是上一次add 里面的全部撤销了 
+git reset HEAD XXX.html 就是对某个文件进行撤销了
+git reset --soft HEAD^   # 回滚conmmit但是不回滚代码
+```
+
+4.查看git修改的文件,并高亮
+git diff .|egrep "^---|\+\+\+" --color=auto
+
+5.git回滚到上一个版本（太危险，会直接回滚代码）
+git reset --hard HEAD^         回退到上个版本
+git reset --hard HEAD~3        回退到前3次提交之前，以此类推，回退到n次提交之前
+git reset --hard commit_id     退到/进到 指定commit的sha码
