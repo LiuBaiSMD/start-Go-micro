@@ -1,13 +1,13 @@
 package main
 
 import (
-	"log"
+"log"
 
-	proto "github.com/micro-in-cn/all-in-one/basic-practices/micro-api/rpc/proto"
-	"github.com/micro/go-micro"
-	"github.com/micro/go-micro/errors"
+proto "github.com/micro-in-cn/all-in-one/basic-practices/micro-api/rpc/proto"
+"github.com/micro/go-micro"
+"github.com/micro/go-micro/errors"
 
-	"context"
+"context"
 )
 
 type Example struct{}
