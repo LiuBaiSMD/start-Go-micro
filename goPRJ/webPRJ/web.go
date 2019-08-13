@@ -16,6 +16,7 @@ func main() {
 	// New web service
 	service := web.NewService(
 		web.Name("go.micro.web.websocket"),
+		web.Address(":8080	"),
 	)
 
 	if err := service.Init(); err != nil {
