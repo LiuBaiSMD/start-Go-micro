@@ -59,16 +59,6 @@ func sub2() {
 	}
 }
 
-//func sub() {
-//	_, err := broker.Subscribe(topic,func(p broker.Publication) error {
-//		fmt.Printf("[sub] Received Body: %s, Header: %s",string(p.Message().Body), p.Message().Header)
-//		return nil
-//	})
-//	if err != nil {
-//		fmt.Println(err)
-//	}
-//}
-
 func sub1() {
 	//_, err := broker.Subscribe(topic,func(p broker.Publication) error {
 	//	fmt.Printf("[sub] Received Body: %s, Header: %s",string(p.Message().Body), p.Message().Header)
