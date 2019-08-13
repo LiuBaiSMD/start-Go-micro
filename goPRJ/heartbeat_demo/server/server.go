@@ -1,100 +1,3 @@
-//package main
-//
-//import (
-//	"github.com/gogo/protobuf/proto"
-//	"github.com/gorilla/websocket"
-//	"github.com/micro/go-micro/web"
-//	"heartbeat_demo/proto"
-//	"log"
-//	"net/http"
-//)
-//
-//var upGrader = websocket.Upgrader{
-//	CheckOrigin: func(r *http.Request) bool { return true },
-//}
-//var (
-//	clientRes heartbeat.Request
-//	msgSeqId uint64 = 0
-//	USERID uint64 = 666
-//	CLIENTID uint64 = 678
-//)
-//
-//func main() {
-//	// New web serviceru
-//
-//	service := web.NewService(
-//		web.Name("go.micro.web.heartbeat"),
-//	)
-//
-//	if err := service.Init(); err != nil {
-//		log.Fatal("Init", err)
-//	}
-//	// websocket 连接接口 web.name注册根据.分割路由路径，所以注册的路径要和name对应上
-//	service.HandleFunc("/heartbeat", conn)
-//
-//	if err := service.Run(); err != nil {
-//		log.Fatal("Run: ", err)
-//	}
-//}
-//func conn(w http.ResponseWriter, r *http.Request){
-//	//
-//	conn, err := upGrader.Upgrade(w, r, nil)
-//	if err != nil {
-//		log.Printf("upgrade: %s", err)
-//		return
-//	}
-//
-//	defer conn.Close()
-//
-//	//go func(){
-//	//	for{
-//	//		err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssembler())
-//	//		if err1 != nil {
-//	//			log.Fatalf("write close:", err1)
-//	//		} else {
-//	//			log.Fatal("send over")
-//	//			time.Sleep(time.Second * 1)
-//	//		}
-//	//	}
-//	//}()
-//	for {
-//		log.Fatal("start ")
-//		_, buffer, err := conn.ReadMessage()
-//		if err != nil {
-//			log.Println("read1:", err)
-//			break
-//		}
-//		if err := proto.Unmarshal(buffer, &clientRes); err != nil {
-//			log.Printf("proto unmarshal: %s", err)
-//		}
-//		log.Printf("recv userId=%d MsgId=%d Data=%s", clientRes.UserId, clientRes.MsgId, clientRes.Data)
-//		//err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssembler())
-//		//if err1 != nil {
-//		//	log.Fatalf("write close:", err1)
-//		//} else {
-//		//	log.Fatal("send over")
-//		//}
-//		//log.Fatal("again ")
-//	}
-//}
-//
-//func MsgAssembler() []byte {
-//	msgSeqId += 1
-//	retPb := &heartbeat.Request{
-//		ClientId: CLIENTID,
-//		UserId:   USERID,
-//		MsgId:    msgSeqId,
-//		Data:     "handshake:",
-//	}
-//	byteData, err := proto.Marshal(retPb)
-//	if err != nil {
-//		log.Fatal("pb marshaling error: ", err)
-//	}
-//	return byteData
-//}
-
-
-
 package main
 
 import (
@@ -105,6 +8,7 @@ import (
 	"heartbeat_demo/proto"
 	"log"
 	"net/http"
+	"time"
 )
 
 var upGrader = websocket.Upgrader{
@@ -124,6 +28,7 @@ func main() {
 
 	service := web.NewService(
 		web.Name("go.micro.web.heartbeat"),
+		web.Address(":8080"),
 	)
 
 	if err := service.Init(); err != nil {
@@ -137,9 +42,12 @@ func main() {
 	}
 }
 
+var countt int = 0
 
 func conn(w http.ResponseWriter, r *http.Request) {
-	//
+	countt++
+	count := countt
+	log.Println("来了一个新的连接: ", count)
 	conn, err := upGrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Printf("upgrade: %s", err)
@@ -148,38 +56,40 @@ func conn(w http.ResponseWriter, r *http.Request) {
 
 	defer conn.Close()
 	reader := make(chan string ,1)
+	stopReader := make(chan bool)
 	data := ""
 	go func(){
 		for{
-			log.Printf("please input: 	")
+			log.Printf("please input in %d: 	", count)
 			fmt.Scanf("%s",&data)
 			reader <- data
-			log.Printf("your input : %v",data)
+			<-stopReader
 		}
 	}()
+
+	//测试是否两个conn在跑
+	go func(){
+		for{
+			log.Println("test count : %d", count)
+			time.Sleep(time.Second * 2)
+		}
+	}()
+
+	//发送信息的协程
 	go func(){
 		d := ""
 		//ticker := time.NewTicker(time.Second*5)
 		//reader := make(chan string)
 		for{
 			select {
-			//case <-ticker.C:
-			//	err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssembler())
-			//	if err1 != nil {
-			//		log.Printf("write close:", err1)
-			//	} else {
-			//		time.Sleep(time.Second * 5)
-			//	}
 			case d =<- reader:
-				log.Printf("----->send your input")
-				err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssemblerReader(d))
-				if err1 != nil {
-					log.Printf("write close:", err1)
-				} else {
-					log.Printf("send input over!")
+				err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssemblerReader(d)); if err1 != nil {
+					log.Printf("write close:", err1, count)
+				}else{
+					log.Println("send to %d : %s", count, d)
+					stopReader <- true
 				}
 			}
-
 		}
 	}()
 	for {
@@ -191,7 +101,7 @@ func conn(w http.ResponseWriter, r *http.Request) {
 		if err := proto.Unmarshal(buffer, &clientRes); err != nil {
 			log.Printf("proto unmarshal: %s", err)
 		}
-		log.Printf("recv userId=%d MsgId=%d Data=%s", clientRes.UserId, clientRes.MsgId, clientRes.Data)
+		log.Printf("%d recv from %d : %s", count, clientRes.UserId, clientRes.Data)
 	}
 }
 

@@ -15,7 +15,7 @@ import (
 
 const (
 	CLIENTID = 10
-	USERID   = 10001
+	USERID   = 10002
 )
 
 var (
@@ -37,8 +37,8 @@ func NewWebsocketClient(host, path string) *Client {
 	}
 }
 
-func (this *Client) SendMessage() error {
 
+func (this *Client) SendMessage() error {
 	// 增加一个信号监控,检测各种退出的情况,方便通知服务器断开连接
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
@@ -56,6 +56,7 @@ func (this *Client) SendMessage() error {
 	go func() {
 		defer close(done)
 		for {
+			log.Logf("test read-----")
 			_, message, err := conn.ReadMessage()
 			if err != nil {
 				log.Fatalf("read:", err)
@@ -64,46 +65,35 @@ func (this *Client) SendMessage() error {
 			if err := proto.Unmarshal(message, &clientRes); err != nil {
 				log.Logf("proto unmarshal: %s", err)
 			}
-			log.Logf("recv: %s", clientRes)
+			log.Logf("recv from %d : %s", clientRes.UserId, clientRes.Data)
 		}
 	}()
-	//进行发送输入功能
+	//此协程只是读取输入
 	reader:= make(chan string )
 	data := ""
 	go func(){
 		for{
-			log.Logf("please input: 	")
+			log.Log("please input: 	")
 			fmt.Scanf("%s",&data)
 			reader <- data
-			log.Logf("your input : %v",data)
 		}
 	}()
+	//此协程只是为了聊天输入
 	go func(){
 		d := ""
 		//ticker := time.NewTicker(time.Second*5)
 		//reader := make(chan string)
 		for{
 			select {
-			//case <-ticker.C:
-			//	err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssembler())
-			//	if err1 != nil {
-			//		log.Printf("write close:", err1)
-			//	} else {
-			//		time.Sleep(time.Second * 5)
-			//	}
 			case d =<- reader:
-				log.Logf("----->send your input")
-				err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssemblerReader(d))
-				if err1 != nil {
-					log.Logf("write close:", err1)
-				} else {
-					log.Logf("send input over!")
+				if err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssemblerReader(d));err1 != nil {
+					log.Logf("write close1:", err1)
 				}
 			}
 
 		}
 	}()
-	ticker := time.NewTicker(time.Second*5)
+	ticker := time.NewTicker(time.Second * 30)
 	defer ticker.Stop()
 	d := ""
 	for {
@@ -117,12 +107,9 @@ func (this *Client) SendMessage() error {
 				return nil
 			}
 		case d=<-reader:
-			log.Logf("----->send your input")
 			err1 :=conn.WriteMessage(websocket.BinaryMessage, MsgAssemblerReader(d))
 			if err1 != nil {
-				log.Logf("write close:", err1)
-			} else {
-				log.Logf("send input over!")
+				log.Logf("write close2:", err1)
 			}
 		case <-interrupt:
 			log.Fatalf("interrupt")
@@ -131,7 +118,7 @@ func (this *Client) SendMessage() error {
 			// 等待服务器关闭连接，如果超时自动关闭.
 			err := conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
 			if err != nil {
-				log.Fatalf("write close:", err)
+				log.Fatalf("write close3:", err)
 				return nil
 			}
 			select {
