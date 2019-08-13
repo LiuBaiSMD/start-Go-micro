@@ -56,3 +56,7 @@ service := micro.NewService(
         micro.Name("com.foobar.api.example"),
 )
 ```   
+发送rpc请求
+```	
+curl -H 'Content-Type: application/json' -d '{"service": "example.test", "method": "Foo.Bar"}'  http://localhost:8080/rpc
+```

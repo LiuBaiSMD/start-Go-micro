@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	//"github.com/hashicorp/consul/agent/config"
-	"github.com/micro/go-micro/registry"
-	"github.com/micro/go-micro/registry/consul"
+	//"github.com/micro/go-micro/registry"
+	//"github.com/micro/go-micro/registry/consul"
 	"log"
 	"strings"
 	"time"
@@ -98,14 +98,14 @@ func (f *Test) TestReq(ctx context.Context, req *api.Request, rsp *api.Response)
 }
 
 func main() {
-	reg := consul.NewRegistry(func(op *registry.Options) {
-		op.Addrs = []string{
-			"127.0.0.1:8500",
-		}
-	})
+	//reg := consul.NewRegistry(func(op *registry.Options) {
+	//	op.Addrs = []string{
+	//		"127.0.0.1:8080",
+	//	}
+	//})
 
 	service := micro.NewService(
-		micro.Registry(reg),
+		//micro.Registry(reg),
 		micro.Name("go.micro.api.example"),
 		micro.RegisterTTL(time.Second * 5),
 		micro.RegisterInterval(time.Second *4),
