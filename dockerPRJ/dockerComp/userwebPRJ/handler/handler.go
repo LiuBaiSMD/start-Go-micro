@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"github.com/micro/go-micro/client"
 	"github.com/micro/go-micro/util/log"
-	auth "github.com/xuyiwenak/bambooRat/modprojects/user/proto/auth"
-	us "github.com/xuyiwenak/bambooRat/modprojects/user/proto/user"
+	auth "github.com/LiuBaiSMD/goProPlugins/user/proto/auth"
+	us "github.com/LiuBaiSMD/goProPlugins/user/proto/user"
 	"net/http"
 	"time"
 )
