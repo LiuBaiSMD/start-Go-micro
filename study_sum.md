@@ -532,3 +532,4 @@ git reset --hard commit_id     退到/进到 指定commit的sha码
 
 2.broker服务的实现以及micro服务的结构
 
+3.(golang实现服务请求的三种方法)[https://blog.csdn.net/qq_42403866/article/details/84337755]
