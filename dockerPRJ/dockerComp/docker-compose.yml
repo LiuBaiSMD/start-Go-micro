@@ -18,6 +18,30 @@ services:
       - consul4
     environment:
       RUN_DOCKER_MODE: "on"
+  user-srv:
+    build: ./user-srv
+    environment:
+      RUN_DOCKER_MODE: "on"
+    depends_on:
+      - mysql_db
+      - redis
+      - config-manager
+    links:
+      - mysql_db
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+  mysql_db:
+    image: "mysql:latest"
+    restart: always
+    #command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+    volumes:
+      - "${HOME}/mysql/data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
   consul1:
     image: consul
     container_name: node1
