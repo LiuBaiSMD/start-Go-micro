@@ -45,4 +45,5 @@ func main() {
 	c := config.Map()
 	fmt.Println(c)
 	fmt.Println(reflect.TypeOf(host))
-	fmt.Println(host.Name, host.Address, host.Port, host.Test)}
+	fmt.Println(host.Name, host.Address, host.Port, host.Test)
+	}

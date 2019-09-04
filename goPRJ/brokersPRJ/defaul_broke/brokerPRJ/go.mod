@@ -1,4 +1,4 @@
-module rabbitmaPRJ
+module brokerPRJ
 
 go 1.12
 
