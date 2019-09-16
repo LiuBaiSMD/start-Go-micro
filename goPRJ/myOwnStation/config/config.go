@@ -15,16 +15,20 @@ var (
 
 type defaultMyOwnStation struct {
 	MyOwnStation        string `json:"MyOwnStation"`
-	TokenTTL        int    `json:"TokenTTL"`
+	TokenTTL        	int    `json:"TokenTTL"`
 }
 
 var (
 	defaultConfigPath       = "myOwnStation" // 默认的仓库地址
-	defaultConsulServerAddr = "127.0.0.1:8500"
+	defaultConsulServerAddr = "localhost:8500"
 	dockerConsulServerAddr = "consul4:8500"
 	m                       sync.RWMutex
 	inited                  bool
 	MyOwnStation 			 defaultMyOwnStation
+	webConf					webConfig
+	consulConf				consulConfig
+	redisConf				redisConfig
+	mysqlConf				mysqlConfig
 )
 
 // Init 初始化配置
@@ -77,19 +81,62 @@ func Init() {
 				panic(err)
 			}
 			log.Logf("consul配置中心有变化，%s", string(v.Bytes()))
-			if err := conf.Get("config").Scan(&MyOwnStation); err != nil {
-				log.Logf("consul配置加载异常:%s", err)
-			}
+			readConfig(conf)
+			log.Log(MyOwnStation, webConf, consulConf, redisConf, mysqlConf)
 		}
 	}()
 	// 赋值
-
-	if err := conf.Get("config").Scan(&MyOwnStation); err != nil {
-		log.Logf("consul配置加载异常:%s", err)
-	}
+	readConfig(conf)
+	log.Log(MyOwnStation, webConf, consulConf, redisConf, mysqlConf)
 	inited = true
 	// 标记已经初始化
 }
+
+func readConfig(conf config.Config) error{
+	if err := conf.Get("config").Scan(&MyOwnStation); err != nil {
+		log.Logf("总配置加载异常:%s", err)
+		return err
+	}
+	if err := conf.Get("config", "WebConfig").Scan(&webConf); err != nil {
+		log.Logf("webService配置加载异常:%s", err)
+		return err
+	}
+	if err := conf.Get("config", "ConsulConfig").Scan(&consulConf); err != nil {
+		log.Logf("总配置加载异常:%s", err)
+		return err
+	}
+	if err := conf.Get("config", "RedisConfig").Scan(&redisConf); err != nil {
+		log.Logf("总配置加载异常:%s", err)
+		return err
+	}
+	if err := conf.Get("config", "MysqlConfig").Scan(&mysqlConf); err != nil {
+		log.Logf("总配置加载异常:%s", err)
+		return err
+	}
+	return nil
+}
+
+func GetWebConfig() webConfig{
+	log.Log("getWebConfig:	", webConf)
+	return webConf
+}
+
+func GetConsulConfig() consulConfig{
+	log.Log("getonsulConfig:	", consulConf)
+	return consulConf
+}
+
+func GetRedisConfig() redisConfig{
+	log.Log("getredisConfig:	", redisConf)
+	return redisConf
+}
+
+func GetMysqlConfig() mysqlConfig{
+	log.Log("getmysqlConfig:	", mysqlConf)
+	return mysqlConf
+}
+
+
 
 
 

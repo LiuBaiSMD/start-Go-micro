@@ -25,13 +25,6 @@ func main() {
 	// 初始化配置
 	//base.Init()
 
-	//dockerMode = os.Getenv("RUN_DOCKER_MODE")
-	//连接Redis
-	//redisUrl := "localhost:6379"
-	//connType := "tcp"
-	//rdsClient = connRedis(connType, redisUrl)
-	//fmt.Print(rdsClient)
-
 	// 使用consul注册
 	micReg := consul.NewRegistry(registryOptions)
 	// 创建新服务
@@ -41,7 +34,6 @@ func main() {
 		web.Version("latest"),
 		web.Registry(micReg),
 		web.Address(":8080"),
-
 	)
 
 	// 初始化服务
@@ -56,6 +48,7 @@ func main() {
 	}
 	// 注册登录接口
 	service.Handle("/websocket/", http.StripPrefix("/websocket/", http.FileServer(http.Dir("html/websocket"))))
+	service.Handle("/changeTest/", http.StripPrefix("/changeTest/", http.FileServer(http.Dir("html/ChangeTest"))))
 	service.HandleFunc("/userlogin/", handler.UserLogin)
 	service.HandleFunc("/userregister/", handler.Register)
 	service.HandleFunc("/changePWD", handler.ChangePWDReq)

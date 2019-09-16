@@ -3,9 +3,11 @@ module myOwnStation
 go 1.12
 
 require (
-	github.com/LiuBaiSMD/goProPlugins/user/proto v0.0.0-20190812061729-8d1f72939b39
+	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-redis/redis v6.15.5+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
+	github.com/golang/protobuf v1.3.2
 	github.com/gorilla/websocket v1.4.1
 	github.com/jinzhu/gorm v1.9.10
 	github.com/micro/cli v0.2.0

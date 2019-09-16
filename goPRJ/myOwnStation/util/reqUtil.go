@@ -7,16 +7,6 @@ import (
 	"encoding/json"
 )
 
-func CheckOKs(oks ...bool) bool{
-	//检查oks是否全为true
-	for _, v := range oks{
-		if !v{
-			return false
-		}
-	}
-	return true
-}
-
 func GetBody(r *http.Request) (map[string]interface{}, error){
 	//将参数解析为 map[string]interface{}型
 	ContType  := r.Header["Content-Type"]

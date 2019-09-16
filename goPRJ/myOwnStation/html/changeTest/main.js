@@ -1,14 +1,11 @@
 window.addEventListener("load", function (evt) {
-    var passwordTxt = document.getElementById("password");
     var nameTxt = document.getElementById("userId");
-    var ws;
-
-
+    var submit = document.getElementById("submit");
 
 
     newWebsocekt()
     document.getElementById("submit").onclick = function (evt) {
         nameTxt.value = "test"
-
+        submit.value = "yes"
     }
 })

@@ -11,18 +11,31 @@ import (
 	"time"
 )
 
-//var sqlDB *gorm.DB
+var inited bool = false
 
 type Auth struct {
 	Id       string `gorm:"default:'peter'"`
 	Password string
+	Name	 string
 }
 
 func Init(){
-	dao.InitMysql("mysql", "root:123456@tcp(127.0.0.1:3306)/micro_user")
-	dao.InitTokenRedis("tcp", "localhost:6379")
-	config.Init()
-	log.Log("MyOwnStation config:	", config.MyOwnStation)
+	if !inited{
+		log.Log("初始化handler模块！")
+		config.Init()
+		dao.Init(
+			dao.SetRedisConnType(config.GetRedisConfig().RedisConnType),
+			dao.SetRedisUrl(config.GetRedisConfig().RedisUrl),
+			dao.SetMysqlDriveName(config.GetMysqlConfig().MysqlDriveName),
+			dao.SetMysqlURL(config.GetMysqlConfig().MysqlURL),
+			)
+
+
+		config.Init()
+		util.Init()
+		//log.Log("MyOwnStation config:	", config.MyOwnStation)
+	}
+	inited =true
 }
 
 func UserLogin(w http.ResponseWriter, r *http.Request) {
