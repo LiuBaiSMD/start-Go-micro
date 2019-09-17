@@ -1,35 +1,36 @@
 {
-  "MyOwnStation":"test",
-  "TokenTTL" : 180,
-  "WebConfig": {
-    "Host": "127.0.0.1",
-    "DockerHost": "webService",
-    "Port": 8080,
-    "Enabled": true
+  "myownstation":"test",
+  "token_ttl" : 180,
+  "web_config": {
+    "host": "127.0.0.1",
+    "docker_host": "webService",
+    "port": 8080,
+    "enabled": true
   },
 
-  "ConfulConfig": {
-    "Host": "127.0.0.1",
-    "DockerHost": "consul4",
-    "Port": 8500,
-    "Enabled": true
+  "consul_config": {
+    "host": "127.0.0.1",
+    "docker_host": "consul4",
+    "port": 8500,
+    "enabled": true,
+    "kv_location": "myOwnStation/config"
   },
 
-  "RedisConfig": {
-    "Host": "127.0.0.1",
-    "DockerHost": "redis",
-    "Port": 6379,
-    "Enabled": true,
-    "RedisUrl": "localhost:6379",
-    "RedisConnType": "tcp"
+  "redis_config": {
+    "host": "127.0.0.1",
+    "docker_host": "redis",
+    "port": 6379,
+    "enabled": true,
+    "redis_url": "localhost:6379",
+    "redis_conn_type": "tcp"
   },
 
-  "MysqlConfig": {
-    "Host": "127.0.0.1",
-    "DockerHost": "mysql",
-    "Port": 3306,
-    "Enabled": true,
-    "MysqlDriveName": "mysql",
-    "MysqlURL": "root:123456@tcp(127.0.0.1:3306)/micro_user"
+  "mysql_config": {
+    "host": "127.0.0.1",
+    "docker_host": "mysql",
+    "port": 3306,
+    "enabled": true,
+    "mysql_drive_name": "mysql",
+    "mysql_url": "root:123456@tcp(127.0.0.1:3306)/micro_user"
   }
 }

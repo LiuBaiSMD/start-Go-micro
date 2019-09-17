@@ -14,8 +14,8 @@ var (
 )
 
 type defaultMyOwnStation struct {
-	MyOwnStation        string `json:"MyOwnStation"`
-	TokenTTL        	int    `json:"TokenTTL"`
+	MyOwnStation        string `json:"myownstation"`
+	TokenTTL        	int    `json:"token_ttl"`
 }
 
 var (
@@ -24,7 +24,7 @@ var (
 	dockerConsulServerAddr = "consul4:8500"
 	m                       sync.RWMutex
 	inited                  bool
-	MyOwnStation 			 defaultMyOwnStation
+	MyOwnStation 			defaultMyOwnStation
 	webConf					webConfig
 	consulConf				consulConfig
 	redisConf				redisConfig
@@ -97,19 +97,19 @@ func readConfig(conf config.Config) error{
 		log.Logf("总配置加载异常:%s", err)
 		return err
 	}
-	if err := conf.Get("config", "WebConfig").Scan(&webConf); err != nil {
+	if err := conf.Get("config", "web_config").Scan(&webConf); err != nil {
 		log.Logf("webService配置加载异常:%s", err)
 		return err
 	}
-	if err := conf.Get("config", "ConsulConfig").Scan(&consulConf); err != nil {
+	if err := conf.Get("config", "consul_config").Scan(&consulConf); err != nil {
 		log.Logf("总配置加载异常:%s", err)
 		return err
 	}
-	if err := conf.Get("config", "RedisConfig").Scan(&redisConf); err != nil {
+	if err := conf.Get("config", "redis_config").Scan(&redisConf); err != nil {
 		log.Logf("总配置加载异常:%s", err)
 		return err
 	}
-	if err := conf.Get("config", "MysqlConfig").Scan(&mysqlConf); err != nil {
+	if err := conf.Get("config", "mysql_config").Scan(&mysqlConf); err != nil {
 		log.Logf("总配置加载异常:%s", err)
 		return err
 	}
